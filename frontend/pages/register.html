@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - ПетроЭксперт</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/top-info-bar.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/chat.css">
+</head>
+<body>
+    <div class="site-container">
+    <div id="topInfoBar"></div>
+    <header id="header"></header>
+
+    <main class="auth-main">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h1>Регистрация</h1>
+                <p class="auth-subtitle">Создайте новый аккаунт</p>
+                <div id="authAlert"></div>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label">Имя *</label>
+                        <input type="text" name="name" class="form-input" required placeholder="Ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email *</label>
+                        <input type="email" name="email" class="form-input" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Телефон</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="+7 (___) ___-__-__">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Город</label>
+                        <select name="city" class="form-select">
+                            <option value="spb">Санкт-Петербург</option>
+                            <option value="moscow">Москва</option>
+                            <option value="novgorod">Великий Новгород</option>
+                            <option value="petrozavodsk">Петрозаводск</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Пароль *</label>
+                        <input type="password" name="password" class="form-input" required minlength="6" placeholder="Минимум 6 символов">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Подтвердите пароль *</label>
+                        <input type="password" name="confirmPassword" class="form-input" required placeholder="Повторите пароль">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Зарегистрироваться</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+            <footer id="footer"></footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/register.js"></script>
+    <script src="../js/chat.js"></script>
+    </div>
+</body>
+</html>

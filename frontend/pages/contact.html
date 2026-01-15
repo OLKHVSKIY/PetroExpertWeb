@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - ПетроЭксперт</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/top-info-bar.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/contact.css">
+    <link rel="stylesheet" href="../css/chat.css">
+</head>
+<body>
+    <div class="site-container">
+    <div id="topInfoBar"></div>
+    <header id="header"></header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Контакты</h1>
+                <p>Свяжитесь с нами любым удобным способом</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-offices">
+                        <h2>Наши офисы</h2>
+                        <div id="officesList"></div>
+                    </div>
+                    <div class="contact-forms">
+                        <div class="contact-form-card">
+                            <h2>Написать нам</h2>
+                            <div id="contactFormAlert"></div>
+                            <form id="contactForm">
+                                <div class="form-group">
+                                    <label class="form-label">Имя *</label>
+                                    <input type="text" name="name" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" name="email" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Телефон</label>
+                                    <input type="tel" name="phone" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Тема</label>
+                                    <input type="text" name="subject" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Сообщение *</label>
+                                    <textarea name="message" class="form-textarea" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить</button>
+                            </form>
+                        </div>
+
+                        <div class="contact-form-card">
+                            <h2>Заказать звонок</h2>
+                            <div id="callbackFormAlert"></div>
+                            <form id="callbackForm">
+                                <div class="form-group">
+                                    <label class="form-label">Имя *</label>
+                                    <input type="text" name="name" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Телефон *</label>
+                                    <input type="tel" name="phone" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Город</label>
+                                    <select name="city" class="form-select">
+                                        <option value="spb">Санкт-Петербург</option>
+                                        <option value="moscow">Москва</option>
+                                        <option value="novgorod">Великий Новгород</option>
+                                        <option value="petrozavodsk">Петрозаводск</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Удобное время для звонка</label>
+                                    <input type="text" name="preferredTime" class="form-input" placeholder="Например: 14:00-16:00">
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Заказать звонок</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+            <footer id="footer"></footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/contact.js"></script>
+    <script src="../js/chat.js"></script>
+    </div>
+</body>
+</html>

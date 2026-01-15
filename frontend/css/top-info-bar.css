@@ -1,0 +1,217 @@
+/* Top Info Bar Styles */
+.top-info-bar {
+    background: #17255F;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.875rem 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(0);
+    opacity: 1;
+    margin: 0 30px;
+    margin-bottom: 0;
+    border-radius: 45px 45px 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 201;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+@media (max-width: 1100px) {
+    .top-info-bar {
+        margin: 0 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-info-bar {
+        margin: 0 15px;
+    }
+}
+
+.top-info-bar .container {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+}
+
+@media (max-width: 1100px) {
+    .top-info-bar .container {
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-info-bar .container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+}
+
+.top-info-bar-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.top-info-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    padding-top: 0.25rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 380px) {
+    .top-info-bar {
+        margin: 0 10px;
+    }
+    
+    .top-info-bar .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    .top-info-content {
+        gap: 1rem;
+        font-size: 0.75rem;
+    }
+}
+
+.top-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@media (max-width: 1240px) {
+    .top-info-item:first-child,
+    .top-info-item:nth-child(2) {
+        display: none;
+    }
+}
+
+.top-info-item svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
+.top-info-item a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.top-info-item a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.top-info-link {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    padding: 0;
+    margin-left: 1rem;
+}
+
+.top-info-link:hover {
+    color: white;
+}
+
+/* City Selector */
+.city-selector {
+    position: relative;
+    margin-left: 1rem;
+    z-index: 99999;
+}
+
+.city-selector-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0;
+}
+
+.city-arrow {
+    width: 0.875rem;
+    height: 0.875rem;
+    transition: transform 0.3s ease;
+}
+
+.city-selector.active .city-arrow {
+    transform: rotate(180deg);
+}
+
+.city-arrow {
+    transform: rotate(0deg);
+}
+
+.city-dropdown {
+    position: absolute;
+    top: calc(100% + 0.9rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    margin-top: 0;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 99999;
+    overflow: hidden;
+    padding: 1rem 0;
+}
+
+.city-selector.active .city-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.city-dropdown-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    background: none;
+    color: var(--secondary-900);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.city-dropdown-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 1px;
+    background-color: var(--secondary-200);
+}
+
+.city-dropdown-item:hover {
+    background-color: var(--secondary-100);
+}
+
+.city-dropdown-item:active {
+    background-color: var(--secondary-200);
+}
+
+@media (max-width: 767px) {
+    .top-info-bar {
+        display: none;
+    }
+}
