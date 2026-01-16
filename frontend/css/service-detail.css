@@ -1,90 +1,2031 @@
-/* Service Detail Page Styles */
+/* Service Detail Page Styles - Modern Minimalist */
 .service-detail-container {
-    padding: 3rem 0;
-    background: white;
+    padding: 0;
+    background: #ffffff;
     min-height: 60vh;
+    overflow-x: hidden;
 }
 
 .service-detail {
-    max-width: 56rem;
+    max-width: 100%;
     margin: 0 auto;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Section */
+.service-detail-hero {
+    position: relative;
+    margin: 0 30px;
+    margin-top: 3rem;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.service-detail-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .service-detail-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 400px;
+    height: 100%;
     object-fit: cover;
-    border-radius: 0.75rem;
-    margin-bottom: 2rem;
+    opacity: 0.3;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-detail-hero:hover .service-detail-image {
+    transform: scale(1.05);
+}
+
+.service-detail-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 3rem 2rem;
+    max-width: 800px;
 }
 
 .service-detail-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--secondary-900);
+    margin-bottom: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.service-detail-hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    animation: slideUp 1s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.service-detail-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.service-detail-meta-item svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Content Section */
+.service-detail-content {
+    padding: 0 30px;
+    margin-bottom: 4rem;
 }
 
 .service-detail-description {
     font-size: 1.125rem;
-    color: var(--secondary-700);
+    color: #475569;
     line-height: 1.8;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    animation: fadeIn 1s ease-out 0.2s both;
 }
 
+.service-detail-description p {
+    margin-bottom: 1.5rem;
+}
+
+/* Features Section */
 .service-detail-features {
-    background: var(--secondary-50);
-    border-radius: 0.75rem;
-    padding: 2rem;
-    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 20px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    animation: fadeIn 1s ease-out 0.4s both;
+    border: 1px solid rgba(23, 37, 95, 0.1);
 }
 
 .service-detail-features h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #17255F;
+    text-align: center;
 }
 
 .service-detail-features-list {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
 }
 
 .service-detail-feature {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(23, 37, 95, 0.1);
+    animation: fadeInUp 0.6s ease-out both;
 }
 
-.service-detail-feature svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    color: var(--primary-600);
-    margin-top: 0.125rem;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.service-detail-feature:nth-child(1) { animation-delay: 0.1s; }
+.service-detail-feature:nth-child(2) { animation-delay: 0.2s; }
+.service-detail-feature:nth-child(3) { animation-delay: 0.3s; }
+.service-detail-feature:nth-child(4) { animation-delay: 0.4s; }
+.service-detail-feature:nth-child(5) { animation-delay: 0.5s; }
+.service-detail-feature:nth-child(6) { animation-delay: 0.6s; }
+
+.service-detail-feature:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(23, 37, 95, 0.15);
+    border-color: #17255F;
+}
+
+.service-detail-feature-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
 
+.service-detail-feature:hover .service-detail-feature-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-detail-feature-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+    stroke-width: 2.5;
+}
+
+.service-detail-feature-text {
+    font-size: 1rem;
+    color: #334155;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* CTA Section */
 .service-detail-cta {
-    background: var(--primary-50);
-    border-radius: 0.75rem;
-    padding: 2rem;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    border-radius: 20px;
+    padding: 4rem 3rem;
+    text-align: center;
+    color: white;
+    margin: 0 30px 4rem 30px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 1s ease-out 0.6s both;
+}
+
+.service-detail-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.3;
+    }
+}
+
+.service-detail-cta-content {
+    position: relative;
+    z-index: 2;
 }
 
 .service-detail-cta h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 2.5rem;
+    font-weight: 700;
     margin-bottom: 1rem;
+    color: white;
 }
 
 .service-detail-cta p {
-    color: var(--secondary-700);
-    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .service-detail-cta-buttons {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
     flex-wrap: wrap;
+}
+
+.service-detail-cta-buttons .btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 220px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.service-detail-cta-buttons .btn-primary {
+    background: white;
+    color: #17255F;
+    border: 2px solid white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.service-detail-cta-buttons .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    background: #f8fafc;
+}
+
+.service-detail-cta-buttons .btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.service-detail-cta-buttons .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .service-detail-hero {
+        margin: 0 20px;
+        margin-top: 2rem;
+    }
+    
+    .service-detail-content {
+        padding: 0 20px;
+    }
+    
+    .service-detail-cta {
+        margin: 0 20px 3rem 20px;
+        padding: 3rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-detail-hero {
+        margin: 0 15px;
+        margin-top: 1.5rem;
+        min-height: 300px;
+        border-radius: 16px;
+    }
+    
+    .service-detail-hero-content {
+        padding: 2rem 1.5rem;
+    }
+    
+    .service-detail-title {
+        font-size: 2rem;
+    }
+    
+    .service-detail-content {
+        padding: 0 15px;
+    }
+    
+    .service-detail-description {
+        font-size: 1rem;
+    }
+    
+    .service-detail-features {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+    }
+    
+    .service-detail-features h2 {
+        font-size: 1.5rem;
+    }
+    
+    .service-detail-features-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .service-detail-feature {
+        padding: 1.25rem;
+    }
+    
+    .service-detail-cta {
+        margin: 0 15px 2rem 15px;
+        padding: 2.5rem 1.5rem;
+        border-radius: 16px;
+    }
+    
+    .service-detail-cta h2 {
+        font-size: 1.75rem;
+    }
+    
+    .service-detail-cta p {
+        font-size: 1rem;
+    }
+    
+    .service-detail-cta-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .service-detail-cta-buttons .btn {
+        width: 100%;
+    }
+    
+    .service-detail-hero-meta {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-detail-hero {
+        margin: 0 10px;
+        margin-top: 1rem;
+    }
+    
+    .service-detail-title {
+        font-size: 1.75rem;
+    }
+    
+    .service-detail-content {
+        padding: 0 10px;
+    }
+    
+    .service-detail-features {
+        padding: 1.5rem 1rem;
+    }
+    
+    .service-detail-cta {
+        margin: 0 10px 1.5rem 10px;
+        padding: 2rem 1rem;
+    }
+    
+    .service-detail-cta h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Services Grid - Autotechnical Page */
+.autotechnical-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    animation: fadeIn 1s ease-out 0.3s both;
+}
+
+.service-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid rgba(23, 37, 95, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+.service-card:nth-child(1) { animation-delay: 0.1s; }
+.service-card:nth-child(2) { animation-delay: 0.2s; }
+.service-card:nth-child(3) { animation-delay: 0.3s; }
+.service-card:nth-child(4) { animation-delay: 0.4s; }
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(23, 37, 95, 0.15);
+    border-color: #17255F;
+}
+
+.service-card-header {
+    margin-bottom: 1rem;
+}
+
+.service-card-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #17255F;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.service-card-description {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.service-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(23, 37, 95, 0.1);
+    margin-top: auto;
+    flex-wrap: wrap;
+}
+
+.service-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    color: #334155;
+    font-weight: 600;
+}
+
+.service-meta-item svg {
+    width: 18px;
+    height: 18px;
+    color: #17255F;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .autotechnical-services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .service-card {
+        padding: 1.5rem;
+    }
+    
+    .service-card-title {
+        font-size: 1.25rem;
+    }
+    
+    .service-card-description {
+        font-size: 0.9375rem;
+    }
+    
+    .service-card-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .autotechnical-services-grid {
+        gap: 1.25rem;
+    }
+    
+    .service-card {
+        padding: 1.25rem;
+    }
+    
+    .service-card-title {
+        font-size: 1.125rem;
+    }
+}
+
+/* Autotechnical Page Styles */
+.autotechnical-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Title Section */
+.autotechnical-title-section {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.autotechnical-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+}
+
+/* Breadcrumbs */
+.autotechnical-breadcrumbs {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.9375rem;
+    color: #64748b;
+}
+
+.autotechnical-breadcrumbs a {
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.autotechnical-breadcrumbs a:hover {
+    color: #17255F;
+}
+
+.breadcrumbs-separator {
+    color: #cbd5e1;
+}
+
+.breadcrumbs-current {
+    color: #17255F;
+    font-weight: 500;
+}
+
+/* Hero Section */
+.autotechnical-hero {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto 3rem auto;
+}
+
+.autotechnical-hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 25px;
+    overflow: hidden;
+    height: 500px;
+}
+
+.autotechnical-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.autotechnical-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 45%;
+    background: linear-gradient(90deg, rgba(39, 40, 42, 0.95) 0%, rgba(73, 77, 93, 0.85) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+}
+
+.autotechnical-hero-content {
+    color: white;
+    text-align: left;
+}
+
+.autotechnical-hero-title {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: white;
+    line-height: 1.4;
+}
+
+.autotechnical-hero-description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+}
+
+.autotechnical-hero-description {
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+}
+
+.autotechnical-hero-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.autotechnical-hero-list li {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    padding-left: 1.75rem;
+    position: relative;
+    opacity: 0.95;
+}
+
+.autotechnical-hero-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: white;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.autotechnical-hero-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Callback Form Section */
+.autotechnical-callback {
+    margin-bottom: 4rem;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    border-radius: 25px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.autotechnical-callback-form {
+    display: flex;
+    align-items: center;
     gap: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.autotechnical-phone-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    font-size: 1.125rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.95);
+    color: #17255F;
+}
+
+.autotechnical-phone-input:focus {
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+    background: white;
+}
+
+.autotechnical-phone-input::placeholder {
+    color: #94a3b8;
+}
+
+.autotechnical-callback-button {
+    padding: 1rem 2.5rem;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    white-space: nowrap;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.autotechnical-callback-button:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.autotechnical-callback-button:active {
+    transform: translateY(0);
+}
+
+.autotechnical-callback-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 2;
+}
+
+.autotechnical-checkbox-input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: white;
+}
+
+.autotechnical-checkbox-label {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    user-select: none;
+}
+
+.autotechnical-checkbox-label a {
+    color: #17255F;
+    text-decoration: underline;
+}
+
+/* Expertise Types Section */
+.autotechnical-expertise-types {
+    margin-bottom: 4rem;
+}
+
+.autotechnical-expertise-types-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.autotechnical-expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.autotechnical-expertise-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.autotechnical-expertise-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 1px solid rgba(23, 37, 95, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.autotechnical-expertise-card-link:hover .autotechnical-expertise-card {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(23, 37, 95, 0.15);
+    border-color: #17255F;
+}
+
+.autotechnical-expertise-card-image {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+}
+
+.autotechnical-expertise-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.autotechnical-expertise-card-link:hover .autotechnical-expertise-card-image img {
+    transform: scale(1.05);
+}
+
+.autotechnical-expertise-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.autotechnical-expertise-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #17255F;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.4;
+}
+
+.autotechnical-expertise-card-description {
+    font-size: 0.9375rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.autotechnical-expertise-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(23, 37, 95, 0.1);
+}
+
+.autotechnical-expertise-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    font-size: 1.3375rem;
+
+    color: #334155;
+    font-weight: 600;
+}
+
+.autotechnical-expertise-meta-item svg {
+    width: 26px;
+    height: 26px;
+    color: #17255F;
+    flex-shrink: 0;
+}
+
+/* Consultation Banner */
+.autotechnical-consultation-banner {
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    border-radius: 25px;
+    padding: 2.5rem 3rem;
+    margin-bottom: 4rem;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.autotechnical-consultation-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    position: relative;
+    will-change: opacity, transform;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    width: 100%;
+    min-height: 64px;
+}
+
+.autotechnical-consultation-left,
+.autotechnical-consultation-center,
+.autotechnical-consultation-button-legal {
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+}
+
+.autotechnical-consultation-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.autotechnical-consultation-question-mark {
+    font-size: 14rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.15);
+    line-height: 1;
+    position: absolute;
+    left: 50px;
+    z-index: 0;
+}
+
+.autotechnical-consultation-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+.autotechnical-consultation-center {
+    flex: 1;
+    text-align: center;
+}
+
+.autotechnical-consultation-center p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.autotechnical-consultation-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.autotechnical-consultation-button {
+    padding: 0.875rem 1.75rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+}
+
+.autotechnical-consultation-button-legal,
+.autotechnical-consultation-button-individual {
+    background: rgba(255, 107, 53, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255, 107, 53, 0.8);
+}
+
+.autotechnical-consultation-button-legal:hover,
+.autotechnical-consultation-button-individual:hover {
+    background: rgba(255, 107, 53, 0.7);
+    border-color: rgba(255, 107, 53, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.autotechnical-consultation-button:active {
+    transform: translateY(0);
+}
+
+/* Consultation Form Wrapper (Hidden by default) */
+.autotechnical-consultation-form-wrapper {
+    display: none;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: calc(1.5rem + 130px);
+    width: 100%;
+    min-height: 64px;
+    position: relative;
+}
+
+.autotechnical-consultation-form-text {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.5;
+    white-space: nowrap;
+    min-width: 500px;
+    text-align: right;
+}
+
+/* Consultation Form */
+.autotechnical-consultation-form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.autotechnical-consultation-phone-input {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.95);
+    color: #17255F;
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.autotechnical-consultation-phone-input:focus {
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+    background: white;
+}
+
+.autotechnical-consultation-phone-input::placeholder {
+    color: #94a3b8;
+}
+
+.autotechnical-consultation-button-order {
+    flex-shrink: 0;
+}
+
+/* Meta Information Section */
+.autotechnical-meta-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 20px;
+    align-items: start;
+}
+
+.autotechnical-meta-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    min-height: 72px;
+}
+
+.autotechnical-meta-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.autotechnical-meta-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.autotechnical-meta-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.autotechnical-meta-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.autotechnical-meta-value {
+    font-size: 1.125rem;
+    color: #17255F;
+    font-weight: 600;
+}
+
+.autotechnical-meta-button {
+    font-size: 1.125rem;
+    color: #17255F;
+    font-weight: 600;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(23, 37, 95, 0.3);
+    text-underline-offset: 4px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    text-align: left;
+}
+
+.autotechnical-meta-button:hover {
+    color: #1e3a8a;
+    text-decoration-color: #1e3a8a;
+}
+
+.autotechnical-meta-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+}
+
+.autotechnical-order-button {
+    padding: 0.875rem 2rem;
+    background: rgba(255, 107, 53, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255, 107, 53, 0.8);
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.autotechnical-order-button:hover {
+    background: rgba(255, 107, 53, 0.7);
+    border-color: rgba(255, 107, 53, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.autotechnical-order-button:active {
+    transform: translateY(0);
+}
+
+/* DTP Circumstances Content Sections */
+.dtp-circumstances-content {
+    margin-bottom: 4rem;
+}
+
+.dtp-circumstances-section {
+    margin-bottom: 3rem;
+}
+
+.dtp-circumstances-section:last-child {
+    margin-bottom: 0;
+}
+
+.dtp-circumstances-section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.dtp-circumstances-section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 32px;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    border-radius: 2px;
+}
+
+.dtp-circumstances-section-content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #475569;
+}
+
+.dtp-circumstances-section-content p {
+    margin-bottom: 1.25rem;
+}
+
+.dtp-circumstances-section-content p:last-child {
+    margin-bottom: 0;
+}
+
+.dtp-circumstances-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0;
+}
+
+.dtp-circumstances-list li {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #475569;
+    padding-left: 1.75rem;
+    position: relative;
+    margin-bottom: 0.875rem;
+}
+
+.dtp-circumstances-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #17255F;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.dtp-circumstances-list li:last-child {
+    margin-bottom: 0;
+}
+
+.dtp-circumstances-link {
+    color: #17255F;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(23, 37, 95, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+.dtp-circumstances-link:hover {
+    border-bottom-color: #17255F;
+}
+
+/* Meta Information Section */
+.autotechnical-meta-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: #f4f4f4;
+    border-radius: 20px;
+    align-items: start;
+}
+
+.autotechnical-meta-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    min-height: 72px;
+}
+
+.autotechnical-meta-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.autotechnical-meta-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.autotechnical-meta-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.autotechnical-meta-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.autotechnical-meta-value {
+    font-size: 1.125rem;
+    color: #17255F;
+    font-weight: 600;
+}
+
+.autotechnical-meta-button {
+    font-size: 1.125rem;
+    color: #17255F;
+    font-weight: 600;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(23, 37, 95, 0.3);
+    text-underline-offset: 4px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    text-align: left;
+}
+
+.autotechnical-meta-button:hover {
+    color: #1e3a8a;
+    text-decoration-color: #1e3a8a;
+}
+
+.autotechnical-meta-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+}
+
+.autotechnical-order-button {
+    padding: 0.875rem 4rem;
+    background: rgba(255, 107, 53, 0.758);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255, 107, 53, 1);
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.autotechnical-order-button:hover {
+    background: rgba(255, 107, 53, 0.7);
+    border-color: rgba(255, 107, 53, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.autotechnical-order-button:active {
+    transform: translateY(0);
+}
+
+/* DTP Circumstances Content Sections */
+.dtp-circumstances-content {
+    margin-bottom: 4rem;
+}
+
+.dtp-circumstances-section {
+    margin-bottom: 3rem;
+}
+
+.dtp-circumstances-section:last-child {
+    margin-bottom: 0;
+}
+
+.dtp-circumstances-section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.dtp-circumstances-section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 32px;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    border-radius: 2px;
+}
+
+.dtp-circumstances-section-content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #475569;
+}
+
+.dtp-circumstances-section-content p {
+    margin-bottom: 1.25rem;
+}
+
+.dtp-circumstances-section-content p:last-child {
+    margin-bottom: 0;
+}
+
+.dtp-circumstances-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0;
+}
+
+.dtp-circumstances-list li {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #475569;
+    padding-left: 1.75rem;
+    position: relative;
+    margin-bottom: 0.875rem;
+}
+
+.dtp-circumstances-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #17255F;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.dtp-circumstances-list li:last-child {
+    margin-bottom: 0;
+}
+
+.dtp-circumstances-link {
+    color: #17255F;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(23, 37, 95, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+.dtp-circumstances-link:hover {
+    border-bottom-color: #17255F;
+}
+
+/* Payment Methods Modal */
+.payment-methods-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.payment-methods-modal.active {
+    opacity: 1;
+}
+
+.payment-methods-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.payment-methods-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    z-index: 10001;
+}
+
+.payment-methods-modal.active .payment-methods-modal-content {
+    transform: scale(1);
+}
+
+.payment-methods-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #64748b;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.payment-methods-modal-close:hover {
+    background: #f1f5f9;
+    color: #17255F;
+}
+
+.payment-methods-modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #17255F;
+    margin-bottom: 1.5rem;
+}
+
+.payment-methods-modal-body {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #475569;
+}
+
+.payment-methods-modal-body p {
+    margin-bottom: 1.25rem;
+}
+
+.payment-methods-modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* PDF Viewer Modal */
+.pdf-viewer-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pdf-viewer-modal.active {
+    opacity: 1;
+}
+
+.pdf-viewer-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.pdf-viewer-modal-content {
+    position: relative;
+    background: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 10001;
+}
+
+.pdf-viewer-close-btn {
+    position: absolute;
+    top: 0.6rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(23, 37, 95, 0.2);
+    font-size: 2rem;
+    color: #17255F;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 10002;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pdf-viewer-close-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: #17255F;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.pdf-viewer-modal-body {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+}
+
+.pdf-viewer-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    min-height: 100vh;
+}
+
+/* Types of Auto Expertise Detailed Section */
+.autotechnical-expertise-types-detailed {
+    margin-bottom: 4rem;
+    padding: 3rem 0;
+}
+
+.autotechnical-expertise-types-detailed-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.autotechnical-expertise-types-detailed-intro {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #334155;
+    margin-bottom: 3rem;
+    text-align: center;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.autotechnical-expertise-types-detailed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.autotechnical-expertise-type-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.autotechnical-expertise-type-item:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
+}
+
+.autotechnical-expertise-type-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #17255F;
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.autotechnical-expertise-type-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%);
+    border-radius: 2px;
+}
+
+.autotechnical-expertise-type-description {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #475569;
+    margin-bottom: 1rem;
+}
+
+.autotechnical-expertise-type-description:last-child {
+    margin-bottom: 0;
+}
+
+.autotechnical-expertise-type-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.autotechnical-expertise-type-list li {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #475569;
+    padding-left: 1.75rem;
+    position: relative;
+    margin-bottom: 0.75rem;
+}
+
+.autotechnical-expertise-type-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #17255F;
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.autotechnical-expertise-type-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    
+    .autotechnical-hero-overlay {
+        width: 50%;
+        padding: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .autotechnical-title {
+        font-size: 2rem;
+    }
+    
+    .autotechnical-breadcrumbs {
+        justify-content: flex-start;
+        font-size: 0.875rem;
+    }
+    
+    .autotechnical-hero-image-wrapper {
+        min-height: 400px;
+    }
+    
+    .autotechnical-hero-overlay {
+        width: 100%;
+        background: linear-gradient(180deg, rgba(23, 37, 95, 0.85) 0%, rgba(23, 37, 95, 0.95) 100%);
+        padding: 2rem;
+    }
+    
+    .autotechnical-hero-title {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .autotechnical-hero-list li {
+        font-size: 1rem;
+        margin-bottom: 0.875rem;
+    }
+    
+    .autotechnical-callback {
+        padding: 2rem;
+        border-radius: 16px;
+    }
+    
+    .autotechnical-callback-form {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .autotechnical-phone-input {
+        width: 100%;
+    }
+    
+    .autotechnical-callback-button {
+        width: 100%;
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .autotechnical-expertise-types-detailed {
+        padding: 2rem 0;
+    }
+    
+    .autotechnical-expertise-types-detailed-title {
+        font-size: 2rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .autotechnical-expertise-types-detailed-intro {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .autotechnical-expertise-types-detailed-list {
+        gap: 1.5rem;
+    }
+    
+    .autotechnical-expertise-type-item {
+        padding: 2rem;
+    }
+    
+    .autotechnical-expertise-type-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    .autotechnical-title {
+        font-size: 1.75rem;
+    }
+    
+    .autotechnical-hero-image-wrapper {
+        min-height: 350px;
+        border-radius: 16px;
+    }
+    
+    .autotechnical-hero-overlay {
+        padding: 1.5rem;
+    }
+    
+    .autotechnical-hero-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .autotechnical-hero-list li {
+        font-size: 0.9375rem;
+        padding-left: 1.5rem;
+    }
+    
+    .autotechnical-callback {
+        padding: 1.5rem;
+    }
+    
+    .autotechnical-callback-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .autotechnical-expertise-types-title {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+    
+    .autotechnical-expertise-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .autotechnical-expertise-card-image {
+        height: 200px;
+    }
+    
+    .autotechnical-consultation-banner {
+        padding: 2rem 1.5rem;
+    }
+    
+    .autotechnical-consultation-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+    
+    .autotechnical-consultation-left {
+        width: 100%;
+    }
+    
+    .autotechnical-consultation-question-mark {
+        font-size: 4rem;
+    }
+    
+    .autotechnical-consultation-title {
+        font-size: 1.75rem;
+    }
+    
+    .autotechnical-consultation-center {
+        text-align: left;
+    }
+    
+    .autotechnical-consultation-right {
+        width: 100%;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .autotechnical-consultation-button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .autotechnical-consultation-right {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .autotechnical-consultation-form-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        justify-content: flex-start;
+    }
+    
+    .autotechnical-consultation-form-text {
+        white-space: normal;
+        text-align: center;
+    }
+    
+    .autotechnical-consultation-form {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0.75rem;
+    }
+    
+    .autotechnical-consultation-phone-input {
+        width: 100%;
+    }
+    
+    .autotechnical-consultation-button-order {
+        width: 100%;
+    }
+    
+    .autotechnical-expertise-types-detailed {
+        padding: 2rem 0;
+    }
+    
+    .autotechnical-expertise-types-detailed-title {
+        font-size: 2rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .autotechnical-expertise-types-detailed-intro {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .autotechnical-expertise-types-detailed-list {
+        gap: 1.5rem;
+    }
+    
+    .autotechnical-expertise-type-item {
+        padding: 1.75rem;
+    }
+    
+    .autotechnical-expertise-type-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        padding-left: 1.25rem;
+    }
+    
+    .autotechnical-expertise-type-title::before {
+        height: 20px;
+    }
+    
+    .autotechnical-expertise-type-description {
+        font-size: 0.9375rem;
+    }
+    
+    .autotechnical-expertise-type-list li {
+        font-size: 0.9375rem;
+        padding-left: 1.5rem;
+    }
 }

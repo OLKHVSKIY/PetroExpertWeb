@@ -2,14 +2,16 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Детали услуги - ПетроЭксперт</title>
+    <link rel="icon" type="image/png" href="../assets/logo/logo_icon.png" sizes="48x48">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/top-info-bar.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/service-detail.css">
     <link rel="stylesheet" href="../css/chat.css">
+    <link rel="stylesheet" href="../css/deals-counter.css">
 </head>
 <body>
     <div class="site-container">
@@ -18,8 +20,51 @@
 
     <main>
         <div id="serviceDetail" class="service-detail-container">
-            <div class="container">
-                <div class="spinner"></div>
+            <div class="service-detail">
+                <div class="service-detail-hero">
+                    <img id="serviceDetailImage" src="" alt="" class="service-detail-image" style="display: none;">
+                    <div class="service-detail-hero-content">
+                        <h1 class="service-detail-title" id="serviceDetailTitle">Загрузка...</h1>
+                        <p id="serviceDetailShortDesc" style="font-size: 1.25rem; opacity: 0.95; max-width: 700px; margin: 0 auto; display: none;"></p>
+                        <div class="service-detail-hero-meta" id="serviceDetailMeta">
+                            <!-- Мета-информация будет добавлена через JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-detail-content">
+                    <div class="service-detail-description" id="serviceDetailDescription">
+                        <!-- Описание будет добавлено через JS -->
+                    </div>
+                    
+                    <div class="service-detail-features" id="serviceDetailFeatures" style="display: none;">
+                        <h2>Преимущества услуги</h2>
+                        <ul class="service-detail-features-list" id="serviceDetailFeaturesList">
+                            <!-- Список преимуществ будет добавлен через JS -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-detail-cta">
+                    <div class="service-detail-cta-content">
+                        <h2>Рассчитать стоимость</h2>
+                        <p>Перезвоним за 1 минуту. Расскажем о процессе и рассчитаем стоимость услуг.</p>
+                        <div class="service-detail-cta-buttons">
+                            <a href="tel:+78123318180" class="btn btn-primary">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                                8 (812) 331-81-80
+                            </a>
+                            <a href="contact.html" class="btn btn-outline">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Заполнить заявку
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -31,6 +76,7 @@
     <script src="../js/footer.js"></script>
     <script src="../js/service-detail.js"></script>
     <script src="../js/chat.js"></script>
+    <script src="../js/deals-counter.js"></script>
     </div>
 </body>
 </html>

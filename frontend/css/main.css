@@ -147,9 +147,9 @@ body.content-blurred footer {
 
 /* Main Site Container */
 .site-container {
-    max-width: 100%;
+    max-width: 1500px;
     margin: 0 auto;
-    padding: 10px 30px 30px 30px;
+    padding: 10px 0px 100px 0px;
 }
 
 @media (max-width: 1100px) {
@@ -168,7 +168,6 @@ body.content-blurred footer {
 .container {
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 50px;
 }
 
 @media (max-width: 1100px) {

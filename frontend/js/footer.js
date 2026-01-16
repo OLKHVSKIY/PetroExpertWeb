@@ -108,20 +108,8 @@ function renderCityModal() {
     });
 }
 
-function selectCity(code, name) {
-    localStorage.setItem('selectedCity', code);
-    localStorage.setItem('selectedCityName', name);
-    
-    // Close dropdown
-    document.querySelectorAll('.city-selector').forEach(item => {
-        item.classList.remove('active');
-    });
-    
-    // Optionally reload header to show selected city
-    if (typeof renderHeader === 'function') {
-        renderHeader();
-    }
-}
+// This function is now defined in header.js as window.selectCity
+// Keeping this comment for reference but the actual implementation is in header.js
 
 function openSearchModal() {
     // TODO: Implement search modal

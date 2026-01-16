@@ -1,13 +1,12 @@
-// Certificates Carousel Script
+// Certificates Carousel Script with Touch, Trackpad, and Wheel Support
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.getElementById('certificatesCarousel');
-    const prevBtn = document.getElementById('certificatesPrev');
-    const nextBtn = document.getElementById('certificatesNext');
+    const wrapper = carousel?.closest('.certificates-carousel-wrapper');
     const modal = document.getElementById('certificateModal');
     const modalImage = document.getElementById('certificateModalImage');
     const modalClose = document.getElementById('certificateModalClose');
     
-    if (!carousel) return;
+    if (!carousel || !wrapper) return;
 
     // Список всех сертификатов
     const certificates = [
@@ -36,82 +35,237 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     `).join('');
 
-    // Добавляем сертификаты дважды для бесшовного цикла
-    carousel.innerHTML = certificatesHTML + certificatesHTML;
+    // Добавляем сертификаты трижды для бесшовного цикла
+    carousel.innerHTML = certificatesHTML + certificatesHTML + certificatesHTML;
 
     // Получаем оригинальные элементы
     const originalItems = Array.from(carousel.querySelectorAll('.certificate-item'));
     const itemsCount = certificates.length;
 
-    let currentPosition = 0;
+    let currentPosition = itemsCount; // Начинаем со второй копии
     let isAnimating = false;
-    let autoScrollTimer = null;
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let scrollVelocity = 0;
+    let lastScrollTime = 0;
 
     // Функция для получения ширины элемента с учетом gap
     function getItemWidth() {
-        if (originalItems.length === 0) return 0;
-        const item = originalItems[0];
+        const item = carousel.querySelector('.certificate-item');
+        if (!item) return 0;
         const itemRect = item.getBoundingClientRect();
         const gap = 32; // 2rem gap
         return itemRect.width + gap;
     }
 
-    // Функция для ручной прокрутки
-    function scrollCarousel(direction) {
+    // Функция для обновления позиции
+    function updatePosition(smooth = true) {
+        const itemWidth = getItemWidth();
+        const offset = -(currentPosition * itemWidth);
+        
+        if (smooth) {
+            carousel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        } else {
+            carousel.style.transition = 'none';
+        }
+        carousel.style.transform = `translateX(${offset}px)`;
+    }
+
+    // Функция для бесшовного перехода
+    function handleSeamlessTransition() {
+        const totalItems = itemsCount;
+        
+        if (currentPosition <= 0) {
+            currentPosition = totalItems;
+            carousel.style.transition = 'none';
+            updatePosition(false);
+            requestAnimationFrame(() => {
+                carousel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        } else if (currentPosition >= totalItems * 2) {
+            currentPosition = totalItems;
+            carousel.style.transition = 'none';
+            updatePosition(false);
+            requestAnimationFrame(() => {
+                carousel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        }
+    }
+
+    // Функция для прокрутки
+    function scrollCarousel(direction, amount = 1) {
         if (isAnimating) return;
         isAnimating = true;
 
         // Останавливаем автоматическую анимацию
         carousel.classList.add('manual');
-        if (autoScrollTimer) {
-            clearTimeout(autoScrollTimer);
-            autoScrollTimer = null;
-        }
-
-        const itemWidth = getItemWidth();
-
+        
         if (direction === 'next') {
-            currentPosition++;
-            if (currentPosition >= itemsCount) {
-                currentPosition = 0;
-            }
+            currentPosition += amount;
         } else {
-            currentPosition--;
-            if (currentPosition < 0) {
-                currentPosition = itemsCount - 1;
-            }
+            currentPosition -= amount;
         }
 
-        const offset = -(currentPosition * itemWidth);
-        carousel.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        carousel.style.transform = `translateX(${offset}px)`;
-
+        updatePosition();
+        
         setTimeout(() => {
+            handleSeamlessTransition();
             isAnimating = false;
             // Восстанавливаем автоматическую анимацию через 5 секунд
-            autoScrollTimer = setTimeout(() => {
+            setTimeout(() => {
                 carousel.classList.remove('manual');
                 carousel.style.transition = '';
                 carousel.style.transform = '';
-                currentPosition = 0;
+                currentPosition = itemsCount;
+                updatePosition(false);
+                requestAnimationFrame(() => {
+                    carousel.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
             }, 5000);
         }, 600);
     }
-
-    // Обработчики для кнопок
+    
+    // Добавляем обработчики для кнопок
+    const prevBtn = document.getElementById('certificatesPrev');
+    const nextBtn = document.getElementById('certificatesNext');
+    
     if (prevBtn) {
         prevBtn.addEventListener('click', (e) => {
             e.preventDefault();
             scrollCarousel('prev');
         });
     }
-
+    
     if (nextBtn) {
         nextBtn.addEventListener('click', (e) => {
             e.preventDefault();
             scrollCarousel('next');
         });
     }
+
+    // Touch events (пальцы)
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    wrapper.addEventListener('touchstart', (e) => {
+        if (isAnimating) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isDragging = true;
+        carousel.style.transition = 'none';
+    }, { passive: true });
+
+    wrapper.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        const deltaX = touchStartX - touchX;
+        const deltaY = touchStartY - touchY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            const itemWidth = getItemWidth();
+            const offset = -(currentPosition * itemWidth) - deltaX;
+            carousel.style.transform = `translateX(${offset}px)`;
+        }
+    }, { passive: false });
+
+    wrapper.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const touchX = e.changedTouches[0].clientX;
+        const deltaX = touchStartX - touchX;
+        const threshold = 50;
+
+        if (Math.abs(deltaX) > threshold) {
+            if (deltaX > 0) {
+                scrollCarousel('next');
+            } else {
+                scrollCarousel('prev');
+            }
+        } else {
+            updatePosition();
+        }
+    }, { passive: true });
+
+    // Mouse drag (для тачпада)
+    wrapper.addEventListener('mousedown', (e) => {
+        if (isAnimating) return;
+        startX = e.clientX;
+        currentX = startX;
+        isDragging = true;
+        carousel.style.transition = 'none';
+        e.preventDefault();
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX;
+        const deltaX = startX - currentX;
+        const itemWidth = getItemWidth();
+        const offset = -(currentPosition * itemWidth) - deltaX;
+        carousel.style.transform = `translateX(${offset}px)`;
+    });
+
+    wrapper.addEventListener('mouseup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const deltaX = startX - currentX;
+        const threshold = 50;
+
+        if (Math.abs(deltaX) > threshold) {
+            if (deltaX > 0) {
+                scrollCarousel('next');
+            } else {
+                scrollCarousel('prev');
+            }
+        } else {
+            updatePosition();
+        }
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+        if (isDragging) {
+            isDragging = false;
+            updatePosition();
+        }
+    });
+
+    // Wheel scroll (колесико мыши)
+    wrapper.addEventListener('wheel', (e) => {
+        if (isAnimating) return;
+        
+        const now = Date.now();
+        const timeDelta = now - lastScrollTime;
+        const delta = e.deltaX || e.deltaY;
+        
+        if (Math.abs(delta) > 10) {
+            if (timeDelta < 100) {
+                scrollVelocity = Math.min(scrollVelocity + 0.1, 1);
+            } else {
+                scrollVelocity = 0.3;
+            }
+            
+            lastScrollTime = now;
+            
+            if (delta > 0) {
+                scrollCarousel('next', Math.max(1, Math.floor(scrollVelocity * 2)));
+            } else {
+                scrollCarousel('prev', Math.max(1, Math.floor(scrollVelocity * 2)));
+            }
+            
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // Инициализация позиции для автоматической анимации
+    // Не устанавливаем transform, чтобы CSS анимация работала
+    carousel.style.transform = '';
+    carousel.style.transition = '';
 
     // Функция открытия модального окна
     function openModal(imageSrc) {
@@ -132,6 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Обработчики кликов на сертификаты
     carousel.addEventListener('click', (e) => {
+        if (isDragging) return; // Игнорируем клики во время перетаскивания
+        
         const certificateItem = e.target.closest('.certificate-item');
         if (certificateItem) {
             const img = certificateItem.querySelector('img');
