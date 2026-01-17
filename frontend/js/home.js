@@ -75,21 +75,26 @@ let isExpanded = false; // Флаг для отслеживания состоя
 
 // Mock данные для демонстрации, если API недоступен
 const mockServices = [
-    { _id: '1', title: 'Автотехническая экспертиза', shortDescription: 'Комплексная экспертиза транспортных средств после ДТП', image: 'assets/images/expertise/dtp.PNG' },
-    { _id: '2', title: 'Строительная экспертиза', shortDescription: 'Оценка качества строительных работ и материалов', image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop' },
-    { _id: '3', title: 'Землеустроительная экспертиза', shortDescription: 'Исследование земельных участков и границ', image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop' },
-    { _id: '4', title: 'Лингвистическая экспертиза', shortDescription: 'Анализ текстов и речевых материалов', image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop' },
-    { _id: '5', title: 'Почерковедческая экспертиза', shortDescription: 'Идентификация почерка и подписей', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop' },
-    { _id: '6', title: 'Психологическая экспертиза', shortDescription: 'Оценка психического состояния и поведения', image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop' },
-    { _id: '7', title: 'Оценка недвижимости', shortDescription: 'Определение рыночной стоимости объектов недвижимости', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop' },
-    { _id: '8', title: 'Оценка бизнеса', shortDescription: 'Оценка стоимости предприятий и бизнес-активов', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop' },
-    { _id: '9', title: 'Экспертиза оборудования', shortDescription: 'Анализ технического состояния оборудования', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop' },
-    { _id: '10', title: 'Гидрогеологическая экспертиза', shortDescription: 'Исследование скважин и водных ресурсов', image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=400&h=300&fit=crop' },
-    { _id: '11', title: 'Экспертиза документов', shortDescription: 'Проверка подлинности и давности документов', image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop' },
-    { _id: '12', title: 'Медицинская экспертиза', shortDescription: 'Оценка состояния здоровья и причин повреждений', image: 'https://sud-expertiza.ru/wp-content/uploads/2013/11/-241-e1424178902966.jpg' },    { _id: '13', title: 'Товароведческая экспертиза', shortDescription: 'Анализ качества товаров и их соответствия стандартам', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop' },
-    { _id: '14', title: 'Экспертиза интеллектуальной собственности', shortDescription: 'Оценка стоимости патентов и авторских прав', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop' },
-    { _id: '15', title: 'Экологическая экспертиза', shortDescription: 'Оценка экологического состояния объектов', image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=300&fit=crop' },
-    { _id: '16', title: 'Лабораторные исследования', shortDescription: 'Химические и физические анализы материалов', image: 'https://images.unsplash.com/photo-1564053489984-317bbd824340?w=400&h=300&fit=crop' }
+    { _id: '1', title: 'Автотехническая экспертиза после ДТП', shortDescription: 'Комплексная экспертиза транспортных средств после ДТП', image: 'assets/images/expertise/dtp.PNG' },
+    { _id: '2', title: 'Строительно-техническая экспертиза', shortDescription: 'Оценка качества строительных работ, материалов и конструкций', image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop' },
+    { _id: '3', title: 'Независимая экспертиза оборудования любой сложности', shortDescription: 'Анализ технического состояния и работоспособности оборудования', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop' },
+    { _id: '4', title: 'Почерковедческая экспертиза', shortDescription: 'Идентификация почерка, подписей и установление авторства документов', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop' },
+    { _id: '5', title: 'Техническая экспертиза документов', shortDescription: 'Проверка подлинности, давности и способа изготовления документов', image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop' },
+    { _id: '6', title: 'Лингвистическая экспертиза', shortDescription: 'Анализ текстов, речевых материалов и содержания документов', image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop' },
+    { _id: '7', title: 'Криминалистическая экспертиза', shortDescription: 'Исследование вещественных доказательств и следов преступлений', image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop' },
+    { _id: '8', title: 'Землеустроительная (земельная) экспертиза', shortDescription: 'Исследование земельных участков, границ и кадастровых данных', image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop' },
+    { _id: '9', title: 'Психологическая экспертиза (психолого-педагогическая экспертиза)', shortDescription: 'Оценка психического состояния, поведения и психологических особенностей', image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop' },
+    { _id: '10', title: 'Автотовароведческая экспертиза', shortDescription: 'Оценка стоимости автомобиля, ущерба и стоимости восстановительного ремонта', image: 'assets/images/expertise/dtp.PNG' },
+    { _id: '11', title: 'Товароведческая экспертиза', shortDescription: 'Анализ качества товаров, их соответствия стандартам и установление стоимости', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop' },
+    { _id: '12', title: 'Трасологическая экспертиза', shortDescription: 'Исследование следов и установление механизма образования повреждений', image: 'assets/images/expertise/dtp.PNG' },
+    { _id: '13', title: 'Финансово-экономическая и бухгалтерская экспертиза', shortDescription: 'Анализ финансовой документации, бухгалтерского учета и экономических показателей', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop' },
+    { _id: '14', title: 'Экологическая экспертиза', shortDescription: 'Оценка экологического состояния объектов и воздействия на окружающую среду', image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=300&fit=crop' },
+    { _id: '15', title: 'Лабораторные исследования', shortDescription: 'Химические, физические и биологические анализы материалов и образцов', image: 'https://images.unsplash.com/photo-1564053489984-317bbd824340?w=400&h=300&fit=crop' },
+    { _id: '16', title: 'Услуги по судебным экспертизам', shortDescription: 'Проведение судебных экспертиз для разрешения споров в суде', image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop' },
+    { _id: '17', title: 'Рецензирование заключений', shortDescription: 'Проверка и оценка заключений экспертиз, выявление ошибок и недочетов', image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop' },
+    { _id: '18', title: 'Гидрогеологическая экспертиза скважин', shortDescription: 'Исследование скважин, качества воды и гидрогеологических условий', image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=400&h=300&fit=crop' },
+    { _id: '19', title: 'Экспертиза ДНК - этнический тест', shortDescription: 'Генетическое исследование для установления этнического происхождения', image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop' },
+    { _id: '20', title: 'Другие экспертизы', shortDescription: 'Широкий спектр дополнительных экспертных исследований по запросу', image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop' }
 ];
 
 async function loadServicesPreview() {
@@ -130,8 +135,8 @@ async function loadServicesPreview() {
         // Рендерим все карточки, но сначала показываем только 8
         container.innerHTML = allServices.map((service, index) => {
             const isVisible = index < visibleCount;
-            // Для "Автотехническая экспертиза" используем прямую ссылку на статическую страницу и изображение dtp.PNG
-            const isAutotechnical = service.title === 'Автотехническая экспертиза';
+            // Для "Автотехническая экспертиза после ДТП" используем прямую ссылку на статическую страницу и изображение dtp.PNG
+            const isAutotechnical = service.title === 'Автотехническая экспертиза после ДТП';
             const href = isAutotechnical 
                 ? 'pages/autotechnical.html' 
                 : `pages/service-detail.html?id=${service._id}`;

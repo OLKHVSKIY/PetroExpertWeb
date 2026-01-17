@@ -1,3 +1,35 @@
+// City data configuration
+const cityData = {
+    spb: {
+        name: 'Санкт-Петербург',
+        address: 'г. Санкт-Петербург, ул. Рубинштейна, 34',
+        phone: '+7 (812) 704-87-01',
+        phoneLink: '+78127048701',
+        email: 'info3@petroexpert.ru'
+    },
+    moscow: {
+        name: 'Москва',
+        address: 'г. Москва, ул. Палиха, д. 14, офис 27',
+        phone: '+7(926) 530-09-56',
+        phoneLink: '+79265300956',
+        email: 'mail@petroexpert.ru'
+    },
+    petrozavodsk: {
+        name: 'Петрозаводск',
+        address: 'г. Петрозаводск, пр.Ленина, 21, оф. 143 (г-ца Северная)',
+        phone: '+7 (931) 701-33-24',
+        phoneLink: '+79317013324',
+        email: 'kri@petroexpert.ru'
+    },
+    novgorod: {
+        name: 'Великий Новгород',
+        address: 'г. Великий Новгород, Воскресенский бульвар, д. 4, офис 2-19',
+        phone: '+7 (8162) 55-55-88',
+        phoneLink: '+78162555588',
+        email: 'vn@petroexpert.ru'
+    }
+};
+
 // Top Info Bar Component
 function renderTopInfoBar() {
     const topInfoBar = document.getElementById('topInfoBar');
@@ -24,7 +56,19 @@ function renderTopInfoBar() {
         localStorage.setItem('selectedCity', selectedCity);
     }
     
-    const cityButtonText = selectedCityName;
+    // Get city data
+    const city = cityData[selectedCity] || cityData.spb;
+    const cityButtonText = city.name;
+
+    // Generate email item HTML (only if email exists)
+    const emailItem = city.email ? `
+        <div class="top-info-item">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <a href="mailto:${city.email}">${city.email}</a>
+        </div>
+    ` : '';
 
     topInfoBar.innerHTML = `
         <div class="top-info-bar">
@@ -35,20 +79,15 @@ function renderTopInfoBar() {
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        <span>г. Санкт-Петербург, ул. Рубинштейна, 34</span>
+                        <span>${city.address}</span>
                     </div>
                     <div class="top-info-item">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
-                        <span>8 (812) 331-81-80</span>
+                        <a href="tel:${city.phoneLink}">${city.phone}</a>
                     </div>
-                    <div class="top-info-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        <a href="mailto:info5@petroexpert.ru">info5@petroexpert.ru</a>
-                    </div>
+                    ${emailItem}
                     <div class="top-info-item">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -858,9 +897,15 @@ function renderLoginModal() {
                     <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
                     <h1 class="login-title opacity">ВХОД</h1>
                     <form id="loginModalForm">
-                        <input type="text" name="caseNumber" placeholder="Номер дела" required />
-                        <input type="text" name="lastName" placeholder="Фамилия истца/ответчика" required />
-                        <input type="tel" name="phone" id="loginPhoneInput" placeholder="+7 (___) ___-__-__" required />
+                        <div class="input-wrapper">
+                            <input type="text" name="caseNumber" placeholder="Номер дела" required />
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="text" name="lastName" placeholder="Фамилия истца/ответчика" required />
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="tel" name="phone" id="loginPhoneInput" placeholder="+7 (___) ___-__-__" required />
+                        </div>
                         <button type="submit" class="opacity login-submit-btn">Войти</button>
                     </form>
                     <p class="login-info-text opacity">Войдите в Личный кабинет, чтобы отслеживать статус вашего дела и получать важную информацию о нём</p>

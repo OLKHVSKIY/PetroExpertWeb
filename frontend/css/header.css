@@ -850,7 +850,7 @@ body.login-modal-open main * {
     top: calc(-14% + 10px);
     right: -2px;
     width: 70%;
-    z-index: 1;
+    z-index: 2;
     pointer-events: none;
     user-select: none;
     -webkit-user-drag: none;
@@ -865,24 +865,51 @@ body.login-modal-open main * {
     color: #17255F;
     font-weight: 700;
     position: relative;
-    z-index: 2;
+    z-index: 3;
+}
+
+.login-container-glass form {
+    position: relative;
+}
+
+.login-container-glass form .input-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+}
+
+/* Border layer behind illustration */
+.login-container-glass form .input-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #354584;
+    border-radius: 1rem;
+    z-index: 1;
+    pointer-events: none;
+    transition: all 0.3s ease;
 }
 
 .login-container-glass form input {
     display: block;
     padding: 18px;
     width: 100%;
-    margin: 1.5rem 0;
+    margin: 0;
     color: #1e293b;
     outline: none;
-    background-color: rgba(145, 145, 145, 0.1);
-    border: 1px solid #354584;
+    background-color: transparent;
+    border: none;
     border-radius: 1rem;
     font-weight: 500;
     letter-spacing: 0.8px;
     font-size: 15px;
-    backdrop-filter: blur(15px);
+    backdrop-filter: none;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 3;
+    pointer-events: auto;
 }
 
 .login-container-glass form input::placeholder {
@@ -890,10 +917,13 @@ body.login-modal-open main * {
 }
 
 .login-container-glass form input:focus {
-    box-shadow: 0 0 16px 1px rgba(23, 37, 95, 0.2);
-    border-color: #17255F;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: transparent;
     transform: scale(1);
+}
+
+.login-container-glass form .input-wrapper:focus-within::before {
+    border-color: #17255F;
+    box-shadow: 0 0 16px 1px rgba(23, 37, 95, 0.2);
 }
 
 .login-container-glass form button {
@@ -925,20 +955,31 @@ body.login-modal-open main * {
     background: #17255F;
     border-radius: 50%;
     position: absolute;
-    opacity: 0.5;
+    opacity: 0;
     z-index: -1;
+    animation: circleFadeIn 0.8s ease-out 0.3s forwards;
+}
+
+@keyframes circleFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.5;
+    }
 }
 
 .login-modal .circle-one {
     top: 0;
     left: 0;
-    transform: translate(-45%, -45%);
+    transform: translate(-30%, -30%);
 }
 
 .login-modal .circle-two {
     bottom: 0;
     right: 0;
-    transform: translate(45%, 45%);
+    transform: translate(30%, 30%);
+    animation-delay: 0.4s;
 }
 
 .login-info-text {
