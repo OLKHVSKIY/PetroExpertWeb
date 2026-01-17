@@ -55,8 +55,20 @@ footer {
 }
 
 .footer-social-link svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.footer-social-icon {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.footer-social-link:hover .footer-social-icon {
+    opacity: 0.8;
+    transform: scale(1.1);
 }
 
 .footer-column h4 {

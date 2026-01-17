@@ -31,7 +31,7 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-video">
-                    <video id="heroVideo" autoplay muted loop playsinline>
+                    <video id="heroVideo" autoplay muted loop playsinline controls="false" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false" draggable="false">
                         <source src="upload/Имиджевый ролик ПетроЭксперт [get.gt].mp4" type="video/mp4">
                         Ваш браузер не поддерживает видео.
                     </video>
@@ -100,7 +100,7 @@
                 </section>
 
         <!-- Services Preview -->
-        <section class="services-preview">
+        <section class="services-preview" id="services-preview">
             <div class="container">
                 <h2 class="section-title">Виды экспертиз</h2>
                 <div class="services-grid" id="servicesPreview">
@@ -341,5 +341,6 @@
     <script src="js/clients-carousel.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/deals-counter.js"></script>
+    <script src="js/media-protection.js"></script>
 </body>
 </html>

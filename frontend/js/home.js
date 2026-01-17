@@ -75,7 +75,7 @@ let isExpanded = false; // Флаг для отслеживания состоя
 
 // Mock данные для демонстрации, если API недоступен
 const mockServices = [
-    { _id: '1', title: 'Автотехническая экспертиза', shortDescription: 'Комплексная экспертиза транспортных средств после ДТП', image: 'https://images.unsplash.com/photo-1486754735734-325b5831c3ad?w=400&h=300&fit=crop' },
+    { _id: '1', title: 'Автотехническая экспертиза', shortDescription: 'Комплексная экспертиза транспортных средств после ДТП', image: 'assets/images/expertise/dtp.PNG' },
     { _id: '2', title: 'Строительная экспертиза', shortDescription: 'Оценка качества строительных работ и материалов', image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop' },
     { _id: '3', title: 'Землеустроительная экспертиза', shortDescription: 'Исследование земельных участков и границ', image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop' },
     { _id: '4', title: 'Лингвистическая экспертиза', shortDescription: 'Анализ текстов и речевых материалов', image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop' },
@@ -130,9 +130,17 @@ async function loadServicesPreview() {
         // Рендерим все карточки, но сначала показываем только 8
         container.innerHTML = allServices.map((service, index) => {
             const isVisible = index < visibleCount;
+            // Для "Автотехническая экспертиза" используем прямую ссылку на статическую страницу и изображение dtp.PNG
+            const isAutotechnical = service.title === 'Автотехническая экспертиза';
+            const href = isAutotechnical 
+                ? 'pages/autotechnical.html' 
+                : `pages/service-detail.html?id=${service._id}`;
+            const imageSrc = isAutotechnical 
+                ? 'assets/images/expertise/dtp.PNG' 
+                : service.image;
             return `
-                <a href="pages/service-detail.html?id=${service._id}" class="service-card ${isVisible ? 'visible' : 'hidden'}" data-index="${index}">
-                    ${service.image ? `<img src="${service.image}" alt="${service.title}">` : '<div style="width: 100%; height: 200px; background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%); border-radius: 16px 16px 0 0;"></div>'}
+                <a href="${href}" class="service-card ${isVisible ? 'visible' : 'hidden'}" data-index="${index}">
+                    ${imageSrc ? `<img src="${imageSrc}" alt="${service.title}">` : '<div style="width: 100%; height: 200px; background: linear-gradient(135deg, #17255F 0%, #1e3a8a 100%); border-radius: 16px 16px 0 0;"></div>'}
                     <div class="service-card-content">
                         <h3 class="service-card-title">${service.title}</h3>
                         <p class="service-card-text">${service.shortDescription || service.description.substring(0, 180)}...</p>

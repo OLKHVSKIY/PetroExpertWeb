@@ -105,7 +105,7 @@ function renderHeader() {
                 </a>
                 <nav class="header-nav">
                     <div class="header-nav-item-dropdown">
-                        <a href="${pagesPath}services.html" class="header-nav-link header-nav-link-dropdown">
+                        <a href="${isInPages ? '../index.html#services-preview' : '#services-preview'}" class="header-nav-link header-nav-link-dropdown" id="expertiseLink">
                             Экспертизы
                             <svg class="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -120,7 +120,7 @@ function renderHeader() {
                             </svg>
                         </a>
                     </div>
-                    <a href="${pagesPath}services.html?category=laboratory" class="header-nav-link">Лаб. исследования</a>
+                    <a href="#" class="header-nav-link">Калькулятор</a>
                     <a href="${pagesPath}blog.html" class="header-nav-link header-nav-link-hideable">Блог</a>
                     <div class="header-nav-item-dropdown header-nav-item-hideable">
                         <a href="${pagesPath}about.html" class="header-nav-link header-nav-link-dropdown">
@@ -142,7 +142,7 @@ function renderHeader() {
                             <input type="text" class="header-search-input" placeholder="Поиск..." id="headerSearchInput">
                         </div>
                     </div>
-                    <a href="tel:+78123318180" class="header-action" title="Позвонить">
+                    <a href="#" class="header-action" title="Контакты" onclick="openContactsModal(event); return false;">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
@@ -161,7 +161,7 @@ function renderHeader() {
                             ${cartItems.length > 0 ? `<span class="header-cart-badge">${cartItems.length}</span>` : ''}
                         </a>
                     ` : `
-                        <a href="${pagesPath}login.html" class="header-action" title="Войти">
+                        <a href="#" class="header-action" title="Войти" onclick="openLoginModal(event); return false;">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
@@ -179,7 +179,7 @@ function renderHeader() {
                 <a href="${pagesPath}services.html?service=equipment" class="header-dropdown-item">Независимая экспертиза оборудования любой сложности</a>
                 <a href="${pagesPath}services.html?service=handwriting" class="header-dropdown-item">Почерковедческая экспертиза</a>
                 <a href="${pagesPath}services.html?service=psychological" class="header-dropdown-item">Психологическая экспертиза (психолого-педагогическая)</a>
-                <a href="${pagesPath}services.html?service=laboratory" class="header-dropdown-item">Лабораторные исследования</a>
+                <a href="${pagesPath}laboratory-research.html" class="header-dropdown-item">Лабораторные исследования</a>
                 <a href="${pagesPath}services.html" class="header-dropdown-item">Другие экспертизы</a>
             </div>
             <div class="header-dropdown-menu header-dropdown-menu-evaluation">
@@ -218,9 +218,9 @@ function renderHeader() {
     mobileMenu.id = 'mobile-menu';
     mobileMenu.innerHTML = `
             <nav class="header-mobile-nav">
-                <a href="${pagesPath}services.html" class="header-mobile-nav-link">Экспертизы</a>
+                <a href="${isInPages ? '../index.html#services-preview' : '#services-preview'}" class="header-mobile-nav-link" id="mobileExpertiseLink">Экспертизы</a>
                 <a href="${pagesPath}services.html?category=evaluation" class="header-mobile-nav-link">Оценка</a>
-                <a href="${pagesPath}services.html?category=laboratory" class="header-mobile-nav-link">Лаб. исследования</a>
+                <a href="#" class="header-mobile-nav-link">Калькулятор</a>
                 <a href="${pagesPath}blog.html" class="header-mobile-nav-link">Блог</a>
                 <a href="${pagesPath}about.html" class="header-mobile-nav-link">Компания</a>
                 <div class="header-mobile-actions">
@@ -230,11 +230,11 @@ function renderHeader() {
                         </svg>
                         <span>Поиск</span>
                     </a>
-                    <a href="tel:+78123318180" class="header-mobile-action" title="Позвонить">
+                    <a href="#" class="header-mobile-action" title="Контакты" onclick="openContactsModal(event); return false;">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                         </svg>
-                        <span>Позвонить</span>
+                        <span>Контакты</span>
                     </a>
                     ${user ? `
                         <a href="${pagesPath}dashboard.html" class="header-mobile-action" title="Личный кабинет">
@@ -250,7 +250,7 @@ function renderHeader() {
                             <span>Корзина${cartItems.length > 0 ? ` (${cartItems.length})` : ''}</span>
                         </a>
                     ` : `
-                        <a href="${pagesPath}login.html" class="header-mobile-action" title="Войти">
+                        <a href="#" class="header-mobile-action" title="Войти" onclick="openLoginModal(event); return false;">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
@@ -269,6 +269,102 @@ function renderHeader() {
     
     // Append mobile menu to body
     document.body.appendChild(mobileMenu);
+    
+    // Setup smooth scroll for expertise links
+    setupExpertiseLinkScroll();
+}
+
+// Setup smooth scroll for expertise links
+function setupExpertiseLinkScroll() {
+    // Wait a bit for DOM to be ready
+    setTimeout(() => {
+        // Get expertise links
+        const expertiseLink = document.getElementById('expertiseLink');
+        const mobileExpertiseLink = document.getElementById('mobileExpertiseLink');
+        const links = [expertiseLink, mobileExpertiseLink].filter(Boolean);
+        
+        links.forEach(link => {
+            if (link) {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    // Check if we're on the home page
+                    const isHomePage = window.location.pathname === '/' || 
+                                      window.location.pathname.endsWith('index.html') ||
+                                      window.location.pathname.includes('index.html');
+                    
+                    const isGoingToHomePage = href.includes('index.html');
+                    
+                    // If clicking from another page, let the browser handle the navigation
+                    if (!isHomePage && isGoingToHomePage) {
+                        // Store scroll intent in sessionStorage for after page load
+                        sessionStorage.setItem('scrollToServices', 'true');
+                        return; // Let browser navigate
+                    }
+                    
+                    // If we're on home page, prevent default and smooth scroll
+                    if (isHomePage && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            // Close mobile menu if open
+                            const mobileMenu = document.getElementById('mobile-menu');
+                            if (mobileMenu && mobileMenu.classList.contains('active')) {
+                                if (typeof toggleMobileMenu === 'function') {
+                                    toggleMobileMenu();
+                                }
+                            }
+                            
+                            // Close dropdowns
+                            document.querySelectorAll('.header-nav-item-dropdown').forEach(item => {
+                                item.classList.remove('active');
+                            });
+                            
+                            // Calculate offset for fixed header
+                            const header = document.querySelector('header');
+                            const headerHeight = header ? header.offsetHeight : 0;
+                            const topInfoBar = document.querySelector('.top-info-bar');
+                            const topInfoBarHeight = topInfoBar && !topInfoBar.classList.contains('top-info-bar-hidden') ? topInfoBar.offsetHeight : 0;
+                            const offset = headerHeight + topInfoBarHeight + 20; // 20px extra spacing
+                            
+                            // Smooth scroll
+                            const targetPosition = targetElement.offsetTop - offset;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }, 100);
+    
+    // Handle scroll after page load (if coming from another page)
+    if (sessionStorage.getItem('scrollToServices') === 'true') {
+        sessionStorage.removeItem('scrollToServices');
+        
+        // Wait for page to fully load
+        setTimeout(() => {
+            const targetElement = document.getElementById('services-preview');
+            if (targetElement) {
+                // Calculate offset for fixed header
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                const topInfoBar = document.querySelector('.top-info-bar');
+                const topInfoBarHeight = topInfoBar && !topInfoBar.classList.contains('top-info-bar-hidden') ? topInfoBar.offsetHeight : 0;
+                const offset = headerHeight + topInfoBarHeight + 20; // 20px extra spacing
+                
+                const targetPosition = targetElement.offsetTop - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }, 300);
+    }
 }
 
 function setupDropdownBlur() {
@@ -397,6 +493,7 @@ if (document.readyState === 'loading') {
         renderHeader();
         setupDropdownBlur();
         setupTopInfoBarScroll();
+        renderContactsModal();
         // Ensure selectCity is set after DOM is ready
         if (typeof window.selectCity === 'undefined' || !window.selectCity.toString().includes('petro-expert.com')) {
             // Re-define if it was overwritten
@@ -429,6 +526,8 @@ if (document.readyState === 'loading') {
     renderHeader();
     setupDropdownBlur();
     setupTopInfoBarScroll();
+    renderContactsModal();
+    renderLoginModal();
 }
 
 // Close dropdown menus on click outside
@@ -636,6 +735,252 @@ function initCity() {
         }
     }, 500);
 }
+
+// Contacts Modal
+function renderContactsModal() {
+    const body = document.body;
+    let modal = document.getElementById('contacts-modal');
+    
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'contacts-modal';
+        modal.className = 'modal contacts-modal';
+        body.appendChild(modal);
+    }
+    
+    modal.innerHTML = `
+        <div class="modal-content contacts-modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Контакты</h3>
+                <button class="modal-close" onclick="closeContactsModal()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body contacts-modal-body">
+                <div class="contact-card">
+                    <h4 class="contact-city">Санкт-Петербург</h4>
+                    <div class="contact-info">
+                        <a href="tel:+78127048701" class="contact-phone">8 (812) 704-87-01</a>
+                        <p class="contact-address">г. Санкт-Петербург, ул. Рубинштейна, 34 пер. Щербаков, 15/34 лит. А / (м. Владимирская, Достоевская)</p>
+                        <p class="contact-hours">Пн-Пт: 9:00-18:00</p>
+                        <a href="mailto:info7@petroexpert.ru" class="contact-email">info7@petroexpert.ru</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <h4 class="contact-city">Петрозаводск</h4>
+                    <div class="contact-info">
+                        <a href="tel:+79317013324" class="contact-phone">+7 (931) 701-33-24</a>
+                        <p class="contact-address">г. Петрозаводск, пр.Ленина, 21, оф. 143 (гостиница Северная)</p>
+                        <p class="contact-hours">Пн-Пт: 9:00-18:00</p>
+                        <a href="mailto:krl@petroexpert.ru" class="contact-email">krl@petroexpert.ru</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <h4 class="contact-city">Великий Новгород</h4>
+                    <div class="contact-info">
+                        <a href="tel:+78162555588" class="contact-phone">+7 (8162) 55-55-88, 78-78-70</a>
+                        <p class="contact-address">г. Великий Новгород, Воскресенский бульвар, д. 4, офис 2-19</p>
+                        <p class="contact-hours">Пн-Пт: 9:00-18:00</p>
+                        <a href="mailto:vn@petroexpert.ru" class="contact-email">vn@petroexpert.ru</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <h4 class="contact-city">Москва</h4>
+                    <div class="contact-info">
+                        <a href="tel:+74956629861" class="contact-phone">+7 (495) 662-98-61; +7(901) 541-27-71; +7(926) 530-09-56</a>
+                        <p class="contact-address">г. Москва, ул. Палиха, д. 14, офис 27 (м. Менделеевская, Новослободская)</p>
+                        <p class="contact-hours">Пн-Пт: 9:00-18:00</p>
+                        <a href="mailto:mail@petroexpert.ru" class="contact-email">mail@petroexpert.ru</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeContactsModal();
+        }
+    });
+}
+
+function openContactsModal(e) {
+    if (e) {
+        e.preventDefault();
+    }
+    const modal = document.getElementById('contacts-modal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    } else {
+        renderContactsModal();
+        setTimeout(() => {
+            const newModal = document.getElementById('contacts-modal');
+            if (newModal) {
+                newModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }, 10);
+    }
+}
+
+function closeContactsModal() {
+    const modal = document.getElementById('contacts-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Login Modal (Glassmorphism)
+function renderLoginModal() {
+    const body = document.body;
+    let modal = document.getElementById('login-modal');
+    
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'login-modal';
+        modal.className = 'modal login-modal';
+        body.appendChild(modal);
+    }
+    
+    modal.innerHTML = `
+        <div class="login-container-wrapper">
+            <div class="login-container-glass">
+                <div class="circle circle-one"></div>
+                <div class="login-form-container">
+                    <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+                    <h1 class="login-title opacity">ВХОД</h1>
+                    <form id="loginModalForm">
+                        <input type="text" name="caseNumber" placeholder="Номер дела" required />
+                        <input type="text" name="lastName" placeholder="Фамилия истца/ответчика" required />
+                        <input type="tel" name="phone" id="loginPhoneInput" placeholder="+7 (___) ___-__-__" required />
+                        <button type="submit" class="opacity login-submit-btn">Войти</button>
+                    </form>
+                    <p class="login-info-text opacity">Войдите в Личный кабинет, чтобы отслеживать статус вашего дела и получать важную информацию о нём</p>
+                    <button class="modal-close login-modal-close" onclick="closeLoginModal()">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="circle circle-two"></div>
+            </div>
+        </div>
+    `;
+    
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeLoginModal();
+        }
+    });
+    
+    // Handle form submission
+    const form = modal.querySelector('#loginModalForm');
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Here you can add login logic
+            console.log('Login form submitted');
+        });
+    }
+    
+    // Apply phone mask to login phone input
+    const loginPhoneInput = modal.querySelector('#loginPhoneInput');
+    if (loginPhoneInput) {
+        loginPhoneInput.addEventListener('input', function(e) {
+            let value = e.target.value;
+            let digits = value.replace(/\D/g, '');
+            
+            // Always start with +7
+            if (digits.length === 0) {
+                e.target.value = '';
+                return;
+            }
+            
+            // If user tries to delete +7, prevent it
+            if (digits.length === 1 && !value.startsWith('+7')) {
+                e.target.value = '+7';
+                return;
+            }
+            
+            // Extract digits after 7 (skip the first 7)
+            let digitsAfter7 = digits.length > 1 ? digits.substring(1) : '';
+            
+            // Format the phone number
+            if (digitsAfter7.length === 0) {
+                value = '+7';
+            } else if (digitsAfter7.length <= 3) {
+                value = '+7 (' + digitsAfter7;
+            } else if (digitsAfter7.length <= 6) {
+                value = '+7 (' + digitsAfter7.substring(0, 3) + ') ' + digitsAfter7.substring(3);
+            } else if (digitsAfter7.length <= 8) {
+                value = '+7 (' + digitsAfter7.substring(0, 3) + ') ' + digitsAfter7.substring(3, 6) + '-' + digitsAfter7.substring(6);
+            } else {
+                value = '+7 (' + digitsAfter7.substring(0, 3) + ') ' + digitsAfter7.substring(3, 6) + '-' + digitsAfter7.substring(6, 8) + '-' + digitsAfter7.substring(8, 10);
+            }
+            
+            e.target.value = value;
+        });
+        
+        loginPhoneInput.addEventListener('keydown', function(e) {
+            // Prevent deleting +7
+            if ((e.key === 'Backspace' || e.key === 'Delete') && e.target.value === '+7') {
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+}
+
+function openLoginModal(e) {
+    if (e) {
+        e.preventDefault();
+    }
+    const modal = document.getElementById('login-modal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.classList.add('login-modal-open');
+        document.body.style.overflow = 'hidden';
+    } else {
+        renderLoginModal();
+        setTimeout(() => {
+            const newModal = document.getElementById('login-modal');
+            if (newModal) {
+                newModal.classList.add('active');
+                document.body.classList.add('login-modal-open');
+                document.body.style.overflow = 'hidden';
+            }
+        }, 10);
+    }
+}
+
+function closeLoginModal() {
+    const modal = document.getElementById('login-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.classList.remove('login-modal-open');
+        document.body.style.overflow = '';
+    }
+}
+
+function openRegisterModal() {
+    // Placeholder for register modal
+    console.log('Register modal - to be implemented');
+}
+
+// Make functions globally available
+window.openContactsModal = openContactsModal;
+window.closeContactsModal = closeContactsModal;
+window.openLoginModal = openLoginModal;
+window.closeLoginModal = closeLoginModal;
 
 // Close dropdowns on click outside
 document.addEventListener('click', (e) => {
