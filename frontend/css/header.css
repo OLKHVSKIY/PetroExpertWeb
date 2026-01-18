@@ -270,22 +270,34 @@ header .container .header-dropdown-menu.show {
     margin-bottom: 0;
 }
 
-.header-dropdown-item:nth-last-child(1) {
+/* Стили для последних элементов только в меню "Экспертизы" (первое меню) */
+.header-dropdown-menu:not(.header-dropdown-menu-company):not(.header-dropdown-menu-evaluation) .header-dropdown-item:nth-last-child(1) {
     border-radius: 0 0 45px 0;
     margin-right: 0;
 }
 
-.header-dropdown-item:nth-last-child(1):hover {
+.header-dropdown-menu:not(.header-dropdown-menu-company):not(.header-dropdown-menu-evaluation) .header-dropdown-item:nth-last-child(1):hover {
     border-radius: 0 0 45px 0;
 }
 
-.header-dropdown-item:nth-last-child(2) {
+.header-dropdown-menu:not(.header-dropdown-menu-company):not(.header-dropdown-menu-evaluation) .header-dropdown-item:nth-last-child(2) {
     border-radius: 0 0 0 45px;
-    margin-left: 0;
+    margin-left: 0.5rem; /* Возвращаем отступ для выравнивания */
 }
 
-.header-dropdown-item:nth-last-child(2):hover {
+.header-dropdown-menu:not(.header-dropdown-menu-company):not(.header-dropdown-menu-evaluation) .header-dropdown-item:nth-last-child(2):hover {
     border-radius: 0 0 0 45px;
+}
+
+/* Убираем отступы margin-left для предпоследних элементов в меню "Компания" и "Оценка" */
+.header-dropdown-menu-company .header-dropdown-item:nth-last-child(2),
+.header-dropdown-menu-evaluation .header-dropdown-item:nth-last-child(2) {
+    margin-left: 0.5rem;
+}
+
+.header-dropdown-menu-company .header-dropdown-item:nth-last-child(1),
+.header-dropdown-menu-evaluation .header-dropdown-item:nth-last-child(1) {
+    margin-right: 0.5rem;
 }
 
 .header-actions {

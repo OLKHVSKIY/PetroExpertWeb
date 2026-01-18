@@ -1,7 +1,14 @@
+import mongoose from 'mongoose';
 import Service from '../models/Service.model.js';
 
 export const getServices = async (req, res) => {
   try {
+    // Check if MongoDB is connected
+    if (mongoose.connection.readyState !== 1) {
+      console.warn('MongoDB not connected, returning empty array');
+      return res.json([]);
+    }
+
     const { category, city, search } = req.query;
     const query = { isActive: true };
 
@@ -17,6 +24,12 @@ export const getServices = async (req, res) => {
     const services = await Service.find(query).sort({ order: 1, createdAt: -1 });
     res.json(services);
   } catch (error) {
+    console.error('Error fetching services:', error);
+    // Return empty array if MongoDB error
+    if (error.name === 'MongoServerError' || error.message.includes('buffering timed out')) {
+      console.warn('MongoDB connection error, returning empty array');
+      return res.json([]);
+    }
     res.status(500).json({ message: error.message });
   }
 };

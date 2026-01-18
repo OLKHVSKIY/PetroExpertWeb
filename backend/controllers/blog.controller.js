@@ -1,7 +1,20 @@
+import mongoose from 'mongoose';
 import BlogPost from '../models/BlogPost.model.js';
 
 export const getPosts = async (req, res) => {
   try {
+    // Check if MongoDB is connected
+    if (mongoose.connection.readyState !== 1) {
+      console.warn('MongoDB not connected, returning empty posts');
+      return res.json({
+        posts: [],
+        total: 0,
+        page: 1,
+        limit: 10,
+        totalPages: 0
+      });
+    }
+
     const { category, search, limit = 10, page = 1 } = req.query;
     const query = { isPublished: true };
 
@@ -22,12 +35,24 @@ export const getPosts = async (req, res) => {
     const total = await BlogPost.countDocuments(query);
 
     res.json({
-      posts,
+      posts: posts || [],
       totalPages: Math.ceil(total / limit),
       currentPage: page,
       total
     });
   } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    // Return empty array if MongoDB error
+    if (error.name === 'MongoServerError' || error.message.includes('buffering timed out')) {
+      console.warn('MongoDB connection error, returning empty posts');
+      return res.json({
+        posts: [],
+        total: 0,
+        page: 1,
+        limit: 10,
+        totalPages: 0
+      });
+    }
     res.status(500).json({ message: error.message });
   }
 };

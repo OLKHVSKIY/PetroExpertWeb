@@ -1,6 +1,6 @@
 // Deals Counter Script
 let dealsCounter = null;
-let currentCount = 2893;
+let currentCount = 31313;
 let incrementInterval = null;
 
 // Initialize deals counter

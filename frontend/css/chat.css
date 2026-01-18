@@ -293,6 +293,10 @@
     word-wrap: break-word;
     position: relative;
     padding-bottom: 1.875rem;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 .chat-message.operator .chat-message-bubble {
@@ -318,6 +322,117 @@
 
 .chat-message.operator .chat-message-meta {
     color: rgba(100, 116, 139, 0.6);
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    min-height: 24px;
+}
+
+.typing-indicator span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #64748b;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+/* Reduce padding for operator bubble with typing indicator */
+.chat-message.operator .chat-message-bubble:has(.typing-indicator) {
+    padding: 0.75rem 1.125rem;
+    padding-bottom: 0.75rem;
+    min-height: auto;
+}
+
+@keyframes typing {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Expertise Card */
+.chat-expertise-card {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.chat-expertise-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.chat-expertise-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #17255F;
+    margin: 0;
+}
+
+.chat-expertise-card-description {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.chat-expertise-card-details {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.chat-expertise-card-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.chat-expertise-card-detail svg {
+    width: 16px;
+    height: 16px;
+    color: #17255F;
+}
+
+.chat-expertise-card-button {
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+    background: #17255F;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    transition: background 0.2s ease;
+    margin-top: 0.25rem;
+}
+
+.chat-expertise-card-button:hover {
+    background: #1e3a8a;
 }
 
 /* AI Info Card - Beautiful centered card, fixed position */
@@ -450,22 +565,22 @@
 
 .chat-input {
     width: 100%;
-    padding: 10px 16px 14px 16px;
+    padding: 12px 16px;
     border: 1.5px solid #e2e8f0;
     border-radius: 24px;
     font-size: 0.9375rem;
     font-family: inherit;
     resize: none;
     outline: none;
-    transition: all 0.2s ease;
-    max-height: 120px;
-    overflow-y: auto;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     height: 44px;
     min-height: 44px;
-    line-height: 1.4;
+    max-height: 120px;
+    box-sizing: border-box;
+    line-height: 1.5;
+    overflow: hidden;
     background: #f8fafc;
     color: #1e293b;
-    box-sizing: border-box;
     vertical-align: top;
 }
 
@@ -477,7 +592,7 @@
 
 .chat-input::placeholder {
     color: #94a3b8;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .chat-send-button {

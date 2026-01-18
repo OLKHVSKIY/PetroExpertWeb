@@ -137,11 +137,32 @@ async function loadServicesPreview() {
             const isVisible = index < visibleCount;
             // Для "Автотехническая экспертиза после ДТП" используем прямую ссылку на статическую страницу и изображение dtp.PNG
             const isAutotechnical = service.title === 'Автотехническая экспертиза после ДТП';
+            // Для "Независимая экспертиза оборудования любой сложности" используем прямую ссылку на статическую страницу
+            const isEquipmentExpertise = service.title === 'Независимая экспертиза оборудования любой сложности';
+            const isLinguisticExpertise = service.title === 'Лингвистическая экспертиза';
+            const isHandwritingExpertise = service.title === 'Почерковедческая экспертиза';
+            const isLaboratoryResearch = service.title === 'Лабораторные исследования';
             const href = isAutotechnical 
-                ? 'pages/autotechnical.html' 
+                ? 'pages/autotechnical.html'
+                : isEquipmentExpertise
+                ? 'pages/independent-equipment-expertise.html'
+                : isLinguisticExpertise
+                ? 'pages/linguistic-expertise.html'
+                : isHandwritingExpertise
+                ? 'pages/handwriting-expertise.html'
+                : isLaboratoryResearch
+                ? 'pages/laboratory-research.html'
                 : `pages/service-detail.html?id=${service._id}`;
             const imageSrc = isAutotechnical 
-                ? 'assets/images/expertise/dtp.PNG' 
+                ? 'assets/images/expertise/dtp.PNG'
+                : isEquipmentExpertise
+                ? 'assets/images/expertise/independent-equipment-expertise/IMG_5742.PNG'
+                : isLinguisticExpertise
+                ? 'assets/images/expertise/linguistic-expertise/IMG_5746.PNG'
+                : isHandwritingExpertise
+                ? 'assets/images/expertise/handwriting-expertise/IMG_5743.PNG'
+                : isLaboratoryResearch
+                ? 'assets/images/laboratory/laboratory-virus.jpeg'
                 : service.image;
             return `
                 <a href="${href}" class="service-card ${isVisible ? 'visible' : 'hidden'}" data-index="${index}">

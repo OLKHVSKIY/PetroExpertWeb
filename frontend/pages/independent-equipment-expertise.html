@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Независимая экспертиза оборудования любой сложности - ПетроЭксперт</title>
+    <link rel="icon" type="image/png" href="../assets/logo/logo_icon.png" sizes="48x48">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/top-info-bar.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/service-detail.css">
+    <link rel="stylesheet" href="../css/chat.css">
+    <link rel="stylesheet" href="../css/deals-counter.css">
+    <style>
+        /* Специфичные стили для страницы независимой экспертизы оборудования */
+        /* Уменьшаем расстояние между "Проведение экспертизы оборудования" и "Получите консультацию" в 2 раза */
+        .independent-equipment-page .autotechnical-expertise-types-detailed:has(+ .autotechnical-consultation-banner) {
+            margin-bottom: 0.1rem !important;
+        }
+        
+        /* Уменьшаем отступ между таблицей стоимости и "Возможные вопросы к эксперту:" */
+        /* Секция "Стоимость" идет после "Получите консультацию" */
+        .independent-equipment-page .autotechnical-consultation-banner + .autotechnical-expertise-types-detailed {
+            margin-bottom: 2rem !important;
+        }
+        
+        /* Уменьшаем отступ у секции "Возможные вопросы" сверху и снизу */
+        /* Это вторая секция после консультации */
+        .independent-equipment-page .autotechnical-consultation-banner + .autotechnical-expertise-types-detailed + .autotechnical-expertise-types-detailed {
+            margin-top: -2rem;
+            margin-bottom: 2rem !important;
+        }
+        
+        /* Уменьшаем отступ между "Возможные вопросы" и "Вы можете ходатайствовать" */
+        /* Это третья секция после консультации */
+        .independent-equipment-page .autotechnical-consultation-banner + .autotechnical-expertise-types-detailed + .autotechnical-expertise-types-detailed + .autotechnical-expertise-types-detailed {
+            margin-top: -2rem;
+        }
+        
+        .independent-equipment-page .pricing-table {
+            border-radius: 20px;
+            overflow: hidden;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .independent-equipment-page .pricing-table thead tr:first-child th:first-child {
+            border-top-left-radius: 20px;
+        }
+        
+        .independent-equipment-page .pricing-table thead tr:first-child th:last-child {
+            border-top-right-radius: 20px;
+        }
+        
+        .independent-equipment-page .pricing-table tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 20px;
+        }
+        
+        .independent-equipment-page .pricing-table tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="site-container">
+    <div id="topInfoBar"></div>
+    <header id="header"></header>
+
+    <main>
+        <div class="autotechnical-page independent-equipment-page">
+            <!-- Title Section -->
+            <div class="autotechnical-title-section">
+                <h1 class="autotechnical-title">Независимая экспертиза оборудования любой сложности</h1>
+            </div>
+
+            <!-- Breadcrumbs -->
+            <div class="autotechnical-breadcrumbs">
+                <a href="../index.html">Главная</a>
+                <span class="breadcrumbs-separator">/</span>
+                <a href="#" onclick="return false;">Экспертизы</a>
+                <span class="breadcrumbs-separator">/</span>
+                <span class="breadcrumbs-current">Независимая экспертиза оборудования любой сложности</span>
+            </div>
+
+            <!-- Hero Image Section -->
+            <div class="autotechnical-hero">
+                <div class="autotechnical-hero-image-wrapper">
+                    <img src="../assets/images/expertise/independent-equipment-expertise/IMG_5742.PNG" alt="Независимая экспертиза оборудования любой сложности" class="autotechnical-hero-image">
+                    <div class="autotechnical-hero-overlay">
+                        <div class="autotechnical-hero-content">
+                            <h2 class="autotechnical-hero-title">Независимая экспертиза оборудования любой сложности</h2>
+                            <ul class="autotechnical-hero-list">
+                                <li>выезд по всей России</li>
+                                <li>опыт работы с 2004 года</li>
+                                <li>эксперты-техники с опытом эксплуатации</li>
+                                <li>собственные лаборатории и оборудование</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Callback Form Section -->
+            <div class="autotechnical-callback">
+                <div class="autotechnical-callback-form">
+                    <input type="tel" class="autotechnical-phone-input" placeholder="+7 (___) ___-__-__" id="phoneInput">
+                    <button type="button" class="autotechnical-callback-button">Заказать звонок</button>
+                </div>
+                <div class="autotechnical-callback-checkbox">
+                    <input type="checkbox" id="privacyCheckbox" class="autotechnical-checkbox-input">
+                    <label for="privacyCheckbox" class="autotechnical-checkbox-label">Я согласен(а) на обработку персональных данных</label>
+                </div>
+            </div>
+
+            <!-- Content Section -->
+            <div class="autotechnical-expertise-types-detailed">
+                <div class="dtp-circumstances-content">
+                    <!-- Цель экспертизы -->
+                    <div class="dtp-circumstances-section">
+                        <h2 class="dtp-circumstances-section-title">Цель экспертизы:</h2>
+                        <div class="dtp-circumstances-section-content">
+                            <p>Техническое исследование оборудования проводится с целью проверки его основных эксплуатационных параметров, соответствия фактических параметров нормируемым значениям, а также определения остаточного ресурса, определения причин выхода из строя или порчи. Определяется необходимость проведения ремонта и возможность дальнейшей безопасной эксплуатации.</p>
+                        </div>
+                    </div>
+
+                    <!-- Объекты исследования -->
+                    <div class="dtp-circumstances-section">
+                        <h2 class="dtp-circumstances-section-title">Объекты исследования:</h2>
+                        <div class="dtp-circumstances-section-content">
+                            <p>Оборудование/механизм.</p>
+                        </div>
+                    </div>
+
+                    <!-- Документы -->
+                    <div class="dtp-circumstances-section">
+                        <h2 class="dtp-circumstances-section-title">Какие документы могут потребоваться для исследования?</h2>
+                        <ul class="dtp-circumstances-list">
+                            <li>технический паспорт на оборудование;</li>
+                            <li>описание и инструкция по эксплуатации;</li>
+                            <li>перечень выявленных дефектов;</li>
+                            <li>протоколы о проводимых профилактиках, ТО и ремонтах;</li>
+                            <li>другая полезная информация о состоянии оборудования;</li>
+                        </ul>
+                    </div>
+
+                    <!-- Основной текст -->
+                    <div class="dtp-circumstances-section">
+                        <div class="dtp-circumstances-section-content">
+                            <p>Компания «ПетроЭксперт» проводит техническую экспертизу оборудования в досудебном порядке и по направлению судов – мы работаем с судами в Северо-Западном и Центральном регионах.</p>
+                            <p>Вы можете заказать исследование по договору, в том числе рамочному, дающему дополнительную скидку на проведение технической оценки оборудования. Мы работаем с частными компаниями и государственными организациями. Опыт проведения экспертизы оборудования – более 18 лет.</p>
+                        </div>
+                    </div>
+
+                    <!-- Независимая экспертиза оборудования -->
+                    <div class="dtp-circumstances-section">
+                        <h2 class="dtp-circumstances-section-title">Независимая экспертиза оборудования:</h2>
+                        <div class="dtp-circumstances-section-content">
+                            <p>Проводим независимую экспертизу оборудования в Москве и Санкт-Петербурге, Великом Новгороде, Петрозаводске и других городах России.</p>
+                            <p>Цена и срок проведения экспертизы механизмов, агрегатов, деталей зависят от поставленных вопросов и сложности исследования. Запросить точный расчет времени и стоимости вы можете через форму на сайте, по почте или телефону «ПетроЭксперт» в нужном вам регионе.</p>
+                        </div>
+                    </div>
+
+                    <!-- С нами вы будете уверены -->
+                    <div class="dtp-circumstances-section">
+                        <h2 class="dtp-circumstances-section-title">С нами вы будете уверены:</h2>
+                        <ul class="dtp-circumstances-list">
+                            <li>в точности проводимых исследований: мы имеем собственные аккредитованные лаборатории и сотрудничаем с ведущими исследовательскими институтами РФ.</li>
+                            <li>в объективности заключения эксперта: над вашей задачей работают специалисты, получившие сертификацию в судебной экспертизе и ежегодно повышающие уровень квалификации.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Проведение экспертизы оборудования -->
+                    <div class="dtp-circumstances-section">
+                        <h2 class="dtp-circumstances-section-title">Проведение экспертизы оборудования</h2>
+                        <div class="dtp-circumstances-section-content">
+                            <p>Исследование проводится в соответствии с ФЗ «О государственной судебно-экспертной деятельности». Эксперт обязательно учитывает всю сопроводительную техническую документацию, в том числе документы, подтверждающие прохождение технического обслуживания и ремонт, а также ГОСТы и технические требования для исследуемого изделия.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consultation Banner -->
+            <div class="autotechnical-consultation-banner" id="consultationBanner">
+                <div class="autotechnical-consultation-content" id="consultationContent">
+                    <div class="autotechnical-consultation-left" id="consultationLeft">
+                        <div class="autotechnical-consultation-question-mark">?</div>
+                        <h2 class="autotechnical-consultation-title">Получите консультацию</h2>
+                    </div>
+                    <div class="autotechnical-consultation-center" id="consultationCenter">
+                        <p>Нам важен каждый клиент. Выберите, что вас интересует</p>
+                    </div>
+                    <div class="autotechnical-consultation-right">
+                        <a href="#" class="autotechnical-consultation-button autotechnical-consultation-button-legal" id="legalButton">Для юридических лиц</a>
+                        <a href="#" class="autotechnical-consultation-button autotechnical-consultation-button-individual" id="individualButton">Для физических лиц</a>
+                    </div>
+                </div>
+                
+                <!-- Form (Hidden by default) -->
+                <div class="autotechnical-consultation-form-wrapper" id="consultationFormWrapper" style="display: none;">
+                    <p class="autotechnical-consultation-form-text" id="consultationFormText">Введите номер и менеджер по работе с физическими лицами проконсультирует вас.</p>
+                    <div class="autotechnical-consultation-form" id="consultationForm">
+                        <input type="tel" class="autotechnical-consultation-phone-input" placeholder="+7 (___) ___-__-__" id="consultationPhoneInput">
+                        <button type="button" class="autotechnical-consultation-button autotechnical-consultation-button-individual autotechnical-consultation-button-order" id="orderButton">Заказать</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Стоимость Section -->
+            <div class="autotechnical-expertise-types-detailed">
+                <h2 class="autotechnical-expertise-types-detailed-title">Стоимость</h2>
+                <div class="dtp-circumstances-content">
+                    <div class="dtp-circumstances-section">
+                        <table class="pricing-table" style="width: 100%; margin: 2rem 0;">
+                            <thead>
+                                <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                                    <th style="padding: 1rem; text-align: left; font-size: 1.125rem; font-weight: 600; color: #17255F;">Услуга</th>
+                                    <th style="padding: 1rem; text-align: left; font-size: 1.125rem; font-weight: 600; color: #17255F;">Стоимость (от, руб.)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #e2e8f0;">
+                                    <td style="padding: 1rem; font-size: 1rem; color: #475569;">Проведение экспертизы несложного серийного оборудования</td>
+                                    <td style="padding: 1rem; font-size: 1rem; color: #17255F; font-weight: 600;">от 35 000 ₽</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e2e8f0;">
+                                    <td style="padding: 1rem; font-size: 1rem; color: #475569;">Проведение экспертизы/исследования сложного серийного или нестандартного оборудования</td>
+                                    <td style="padding: 1rem; font-size: 1rem; color: #17255F; font-weight: 600;">от 70 000 ₽</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Возможные вопросы Section -->
+            <div class="autotechnical-expertise-types-detailed">
+                <h2 class="autotechnical-expertise-types-detailed-title">Возможные вопросы к эксперту:</h2>
+                <div class="dtp-circumstances-content">
+                    <ol style="list-style: decimal; padding-left: 2rem; margin: 1.5rem 0;">
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">Соответствует ли оборудование сопроводительным документам, ГОСТу или другим техническим нормам?</li>
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">В каком техническом состоянии оборудование сейчас или на момент аварии, поломки, выхода из строя?</li>
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">Какова степень износа оборудования?</li>
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">Исправно оборудование или нет? Подходит ли оно для эксплуатации?</li>
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">Какие дефекты обнаружены при эксплуатации оборудования? Как они влияют на производительность оборудования?</li>
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">Что явилось причиной поломки механизма или сбоя в работе оборудования?</li>
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">Соответствует ли квалификация сотрудников для работы на оборудовании или с его помощью?</li>
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">Могло ли несоблюдение правил техники безопасности стать причиной поломки механизма или аварии?</li>
+                        <li style="margin-bottom: 1rem; font-size: 1.125rem; line-height: 1.8; color: #475569;">Нарушались ли правила хранения или эксплуатации оборудования? Какие неисправности из-за этого возникли?</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Final CTA Section -->
+            <div class="autotechnical-expertise-types-detailed">
+                <div class="dtp-circumstances-content">
+                    <div class="dtp-circumstances-section">
+                        <div class="dtp-circumstances-section-content">
+                            <p>Вы можете ходатайствовать о проведении экспертизы через суд, а также в частном порядке. Когда вы обращаетесь к нам напрямую, а не в рамках судебного процесса, то наш специалист помогает вам верно сформулировать вопрос для исследования, исходя из обозначенной проблемы. При этом цена договорного исследования ниже, чем стоимость проведения судебной экспертизы. Подробнее вы можете проконсультироваться по телефону 8 (812) 439-19-57 (бесплатно по всей России) или по почте info1@petroexpert.ru. Обращайтесь прямо сейчас!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer"></footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/chat.js"></script>
+    <script src="../js/deals-counter.js"></script>
+    <script src="../js/independent-equipment-expertise.js"></script>
+    </div>
+</body>
+</html>

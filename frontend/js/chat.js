@@ -8,6 +8,7 @@ let isChatOpen = false;
 let scrollPosition = 0;
 let currentTab = 'ai'; // 'ai' or 'operator'
 let isFirstAIMessage = true; // Track if first message in AI chat
+let conversationHistory = []; // Store conversation history for AI context
 
 // Initialize chat widget
 function initChatWidget() {
@@ -106,14 +107,38 @@ function initChatWidget() {
         }
     });
 
-    // Auto-resize textarea
+    // Auto-resize textarea (only expand when text wraps to multiple lines)
     chatInput.addEventListener('input', () => {
+        // Store the text value to check if it's single line
+        const text = chatInput.value;
+        
+        // Always reset to minimum height first to calculate from consistent baseline
         chatInput.style.height = '44px';
-        const newHeight = Math.min(chatInput.scrollHeight, 120);
-        if (newHeight > 44) {
-            chatInput.style.height = newHeight + 'px';
+        
+        // Force a reflow to ensure scrollHeight is calculated correctly
+        const scrollHeight = chatInput.scrollHeight;
+        
+        // Calculate single line height: padding (12px top + 12px bottom) + line-height for one line
+        // For font-size 0.9375rem (15px) and line-height 1.5, one line is ~22.5px
+        // Total: 12 + 12 + 22.5 = 46.5px, but we use 44px as base
+        // Check if text actually wraps by comparing scrollHeight to a threshold for single line
+        // If scrollHeight is significantly more than expected single line height, text has wrapped
+        const singleLineHeight = 44; // Our base height
+        const threshold = 46; // Slight buffer for measurement differences
+        
+        if (scrollHeight > threshold) {
+            // Text has wrapped to multiple lines - allow expansion up to max
+            chatInput.style.height = Math.min(scrollHeight, 120) + 'px';
+        } else {
+            // Text fits in one line - keep at 44px
+            chatInput.style.height = '44px';
         }
     });
+    
+    // Ensure initial height is always set to 44px
+    if (chatInput) {
+        chatInput.style.height = '44px';
+    }
 
     // Prevent body scroll when scrolling inside chat
     if (chatMessagesContainer) {
@@ -150,19 +175,40 @@ function initChatWidget() {
         }
     }, { passive: false });
 
-    // Prevent body scroll on desktop when chat is open
+    // Prevent body scroll on desktop only when scrolling inside chat widget
     document.addEventListener('wheel', (e) => {
-        if (isChatOpen) {
+        if (isChatOpen && window.innerWidth > 480) {
+            // Check if target element is inside chat widget
             const messagesContainers = [chatMessagesContainer, operatorMessagesContainer];
-            const isInChat = messagesContainers.some(container => 
-                container && container.contains(e.target)
-            ) || chatWidget.contains(e.target);
+            const isTargetInChat = chatWidget.contains(e.target) || 
+                messagesContainers.some(container => container && container.contains(e.target));
             
-            if (!isInChat) {
+            // Check if scrolling inside chat messages container
+            const isScrollingInMessages = messagesContainers.some(container => 
+                container && container.contains(e.target)
+            );
+            
+            // Only prevent page scroll if scrolling inside chat but not in messages area
+            // Allow scrolling inside chat messages, but prevent page scroll when hovering chat
+            if (isTargetInChat && !isScrollingInMessages) {
+                // Mouse is in chat widget but not scrolling messages - prevent page scroll
                 e.preventDefault();
             }
+            // If target is outside chat or scrolling inside messages, allow it
         }
     }, { passive: false });
+    
+    // Allow page scrolling when mouse is outside chat (check on mousemove)
+    let isMouseOverChat = false;
+    if (chatWidget) {
+        chatWidget.addEventListener('mouseenter', () => {
+            isMouseOverChat = true;
+        });
+        
+        chatWidget.addEventListener('mouseleave', () => {
+            isMouseOverChat = false;
+        });
+    }
 
     // Initial greeting message for operator chat only
     setTimeout(() => {
@@ -253,8 +299,9 @@ function toggleChat() {
                 chatWidget.style.transform = 'translateY(0)';
             }, 10);
         } else {
-            // Prevent body scroll on desktop
-            document.body.style.overflow = 'hidden';
+            // Don't block body scroll on desktop - allow scrolling when mouse is outside chat
+            // Wheel event handler will prevent scroll only when mouse is inside chat
+            // document.body.style.overflow = 'hidden'; // Removed - allow page scrolling
         }
         
         setTimeout(() => {
@@ -302,8 +349,8 @@ function toggleChat() {
     }
 }
 
-// Add message to chat
-function addMessage(sender, text, tab = null) {
+// Add message to chat with optional typing effect
+function addMessage(sender, text, tab = null, expertise = null, typingEffect = false) {
     const targetTab = tab || currentTab;
     const containerId = targetTab === 'ai' ? 'chatMessagesAI' : 'chatMessagesOperator';
     const messagesContainer = document.getElementById(containerId);
@@ -316,9 +363,22 @@ function addMessage(sender, text, tab = null) {
     const bubbleDiv = document.createElement('div');
     bubbleDiv.className = 'chat-message-bubble';
     
-    // Create text node for message
-    const textNode = document.createTextNode(text);
-    bubbleDiv.appendChild(textNode);
+    // Add text content with markdown support
+    if (text) {
+        if (typingEffect && sender === 'operator') {
+            // Add typing effect for AI responses
+            addTypingEffect(bubbleDiv, text);
+        } else {
+            // Add text immediately
+            addTextContent(bubbleDiv, text);
+        }
+    }
+    
+    // Add expertise card if provided
+    if (expertise && sender === 'operator') {
+        const expertiseCard = createExpertiseCard(expertise);
+        bubbleDiv.appendChild(expertiseCard);
+    }
     
     // Add meta only for operator messages, inside the bubble
     if (sender === 'operator') {
@@ -331,11 +391,151 @@ function addMessage(sender, text, tab = null) {
     messageDiv.appendChild(bubbleDiv);
     messagesContainer.appendChild(messageDiv);
 
+    // Add to conversation history for AI tab
+    if (targetTab === 'ai') {
+        conversationHistory.push({
+            role: sender,
+            content: text
+        });
+        // Keep only last 10 messages for context
+        if (conversationHistory.length > 10) {
+            conversationHistory = conversationHistory.slice(-10);
+        }
+    }
+
     scrollToBottom();
 }
 
+// Add text content with markdown support
+function addTextContent(container, text) {
+    // Convert markdown **text** to <strong>text</strong>
+    const processedText = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    
+    // Parse text with line breaks
+    const textLines = processedText.split('\n');
+    textLines.forEach((line, index) => {
+        if (line.trim() || index < textLines.length - 1) {
+            // Create span for line to support HTML
+            const lineSpan = document.createElement('span');
+            lineSpan.innerHTML = line || '&nbsp;';
+            container.appendChild(lineSpan);
+            if (index < textLines.length - 1) {
+                container.appendChild(document.createElement('br'));
+            }
+        }
+    });
+}
+
+// Add typing effect - character by character
+function addTypingEffect(container, text) {
+    // Split text into lines
+    const lines = text.split('\n');
+    let lineIndex = 0;
+    let charIndex = 0;
+    let isBold = false;
+    let currentElement = null;
+    
+    const typeChar = () => {
+        if (lineIndex >= lines.length) {
+            return;
+        }
+        
+        const line = lines[lineIndex];
+        
+        if (charIndex >= line.length) {
+            // End of line - add line break and move to next line
+            if (lineIndex < lines.length - 1) {
+                container.appendChild(document.createElement('br'));
+            }
+            lineIndex++;
+            charIndex = 0;
+            isBold = false;
+            currentElement = null;
+            
+            if (lineIndex < lines.length) {
+                setTimeout(typeChar, 100);
+            }
+            return;
+        }
+        
+        const char = line[charIndex];
+        
+        // Check for markdown **
+        if (char === '*' && charIndex < line.length - 1 && line[charIndex + 1] === '*') {
+            // Toggle bold
+            isBold = !isBold;
+            currentElement = null; // Reset current element
+            charIndex += 2; // Skip both asterisks
+            setTimeout(typeChar, 10);
+            return;
+        }
+        
+        // Create element if needed
+        if (!currentElement || (currentElement.tagName === 'SPAN' && isBold) || (currentElement.tagName === 'STRONG' && !isBold)) {
+            currentElement = document.createElement(isBold ? 'strong' : 'span');
+            container.appendChild(currentElement);
+        }
+        
+        // Add character
+        currentElement.textContent += char;
+        charIndex++;
+        
+        // Scroll to bottom only if user is near bottom (allow manual scrolling)
+        // Check scroll position - only auto-scroll if user is already at bottom
+        const containerId = currentTab === 'ai' ? 'chatMessagesAI' : 'chatMessagesOperator';
+        const messagesContainer = document.getElementById(containerId);
+        if (messagesContainer) {
+            const isNearBottom = messagesContainer.scrollHeight - messagesContainer.scrollTop - messagesContainer.clientHeight < 100;
+            // Only auto-scroll every 20 characters and only if user is near bottom
+            if (charIndex % 20 === 0 && isNearBottom) {
+                scrollToBottom();
+            }
+        }
+        
+        // Type next character with delay (faster for spaces)
+        const delay = char === ' ' ? 15 : 10;
+        setTimeout(typeChar, delay);
+    };
+    
+    typeChar();
+}
+
+// Create expertise card HTML element
+function createExpertiseCard(expertise) {
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'chat-expertise-card';
+    
+    const isInPages = window.location.pathname.includes('/pages/');
+    const basePath = isInPages ? '../' : '';
+    const expertiseLink = expertise.link ? (expertise.link.startsWith('http') ? expertise.link : `${basePath}${expertise.link}`) : '#';
+    
+    cardDiv.innerHTML = `
+        <div class="chat-expertise-card-content">
+            <h4 class="chat-expertise-card-title">${expertise.title}</h4>
+            <p class="chat-expertise-card-description">${expertise.description}</p>
+            <div class="chat-expertise-card-details">
+                <div class="chat-expertise-card-detail">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>${expertise.duration}</span>
+                </div>
+                <div class="chat-expertise-card-detail">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>${expertise.price}</span>
+                </div>
+            </div>
+            <a href="${expertiseLink}" class="chat-expertise-card-button">Подробнее</a>
+        </div>
+    `;
+    
+    return cardDiv;
+}
+
 // Send message
-function sendMessage() {
+async function sendMessage() {
     if (!chatInput || !chatSendButton) return;
 
     const message = chatInput.value.trim();
@@ -355,39 +555,108 @@ function sendMessage() {
         isFirstAIMessage = false;
     }
 
-    // Add user message
+    // Add user message to UI first
     addMessage('user', message);
     chatInput.value = '';
+    // Force height reset to 44px after clearing
     chatInput.style.height = '44px';
+    // Ensure it stays at 44px
+    setTimeout(() => {
+        chatInput.style.height = '44px';
+    }, 0);
 
     // Disable input while "thinking"
     chatInput.disabled = true;
-    chatSendButton.disabled = true;
+    chatSendButton.disabled = false; // Keep enabled but show loading state
 
-    // Simulate response based on current tab
-    setTimeout(() => {
-        let response;
-        if (currentTab === 'ai') {
-            const aiResponses = [
-                'Спасибо за ваш вопрос. Я изучу его и отвечу в ближайшее время.',
-                'Понял вас. Давайте уточним детали.',
-                'Хороший вопрос! Дайте мне немного времени на подготовку ответа.',
-            ];
-            response = aiResponses[Math.floor(Math.random() * aiResponses.length)];
-        } else {
-            const operatorResponses = [
-                'Спасибо за обращение. Я передам ваш вопрос специалисту.',
-                'Понял вас. Сейчас уточню детали у специалиста.',
-            ];
-            response = operatorResponses[Math.floor(Math.random() * operatorResponses.length)];
+    // Show typing indicator for AI tab
+    if (currentTab === 'ai') {
+        // Add typing indicator
+        const containerId = 'chatMessagesAI';
+        const messagesContainer = document.getElementById(containerId);
+        if (messagesContainer) {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message operator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="chat-message-bubble">
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            scrollToBottom();
         }
-        
-        addMessage('operator', response);
+
+        // Call AI API
+        if (window.API && window.API.ai) {
+            try {
+                const response = await window.API.ai.chat(message, conversationHistory);
+                
+                // Remove typing indicator
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+                
+                // Check if response is successful
+                if (response && response.success === false) {
+                    addMessage('operator', response.message || 'Извините, произошла ошибка. Попробуйте переформулировать вопрос.', 'ai');
+                } else if (response && response.message) {
+                    // Add AI response with expertise card if available and typing effect
+                    addMessage('operator', response.message, 'ai', response.expertise || null, true);
+                } else {
+                    // Unexpected response format
+                    console.warn('Unexpected API response format:', response);
+                    addMessage('operator', 'Извините, не удалось получить ответ. Попробуйте переформулировать вопрос.', 'ai');
+                }
+            } catch (error) {
+                console.error('AI Chat Error:', error);
+                
+                // Remove typing indicator
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+                
+                // Show error message with details in console
+                const errorMsg = error.message || 'Извините, произошла ошибка при обработке вашего запроса. Пожалуйста, попробуйте переформулировать вопрос или свяжитесь с нашим оператором.';
+                console.error('Full error details:', error);
+                addMessage('operator', errorMsg);
+            }
+        } else {
+            // Fallback if API not available
+            setTimeout(() => {
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+                addMessage('operator', 'Спасибо за ваш вопрос. Я изучу его и отвечу в ближайшее время.');
+            }, 1000);
+        }
         
         chatInput.disabled = false;
         chatSendButton.disabled = false;
         chatInput.focus();
-    }, 1000 + Math.random() * 1000);
+    } else {
+        // Operator tab - simulate response
+        setTimeout(() => {
+            const operatorResponses = [
+                'Спасибо за обращение. Я передам ваш вопрос специалисту.',
+                'Понял вас. Сейчас уточню детали у специалиста.',
+            ];
+            const response = operatorResponses[Math.floor(Math.random() * operatorResponses.length)];
+            
+            addMessage('operator', response);
+            
+            chatInput.disabled = false;
+            chatSendButton.disabled = false;
+            chatInput.focus();
+        }, 1000 + Math.random() * 1000);
+    }
 }
 
 // Scroll to bottom of messages

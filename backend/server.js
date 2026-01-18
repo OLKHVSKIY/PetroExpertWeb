@@ -11,6 +11,7 @@ import servicesRoutes from './routes/services.routes.js';
 import ordersRoutes from './routes/orders.routes.js';
 import blogRoutes from './routes/blog.routes.js';
 import contactRoutes from './routes/contact.routes.js';
+import aiRoutes from './routes/ai.routes.js';
 
 dotenv.config();
 
@@ -19,10 +20,15 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Middleware
+// Middleware - CORS configuration (allow all for development)
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
+  origin: true, // Allow all origins for development
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Length', 'Content-Type'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,9 +37,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/petroexpert')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/petroexpert', {
+  serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+  socketTimeoutMS: 45000,
+})
 .then(() => console.log('✅ MongoDB connected'))
-.catch((err) => console.error('❌ MongoDB connection error:', err));
+.catch((err) => {
+  console.warn('⚠️  MongoDB connection error:', err.message);
+  console.warn('   API will work in limited mode without database');
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -41,6 +53,7 @@ app.use('/api/services', servicesRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -56,18 +69,20 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 function startServer(port) {
   const server = app.listen(port, () => {
-    console.log(`🚀 Server running on port ${port}`);
+    console.log(`✅ Backend сервер запущен на порту ${port}`);
     console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🌐 API доступен по адресу: http://localhost:${port}/api`);
   });
 
   server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
-      console.log(`⚠️  Port ${port} is in use, trying ${port + 1}...`);
-      startServer(port + 1);
+      console.error(`❌ Порт ${port} занят! Остановите процесс, использующий порт ${port}, и перезапустите сервер.`);
+      console.error(`❌ Backend не может запуститься на порту ${port}. Используйте: lsof -ti:${port} | xargs kill -9`);
+      process.exit(1);
     } else {
       console.error('❌ Server error:', err);
       process.exit(1);

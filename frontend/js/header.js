@@ -214,12 +214,12 @@ function renderHeader() {
                 <a href="${pagesPath}services.html?service=hydrogeological" class="header-dropdown-item">Гидрогеологическая экспертиза скважин</a>
                 <a href="${pagesPath}services.html?service=land" class="header-dropdown-item">Землеустроительная (земельная) экспертиза</a>
                 <a href="${pagesPath}services.html?service=forensic" class="header-dropdown-item">Криминалистическая экспертиза</a>
-                <a href="${pagesPath}services.html?service=linguistic" class="header-dropdown-item">Лингвистическая экспертиза</a>
-                <a href="${pagesPath}services.html?service=equipment" class="header-dropdown-item">Независимая экспертиза оборудования любой сложности</a>
-                <a href="${pagesPath}services.html?service=handwriting" class="header-dropdown-item">Почерковедческая экспертиза</a>
+                <a href="${pagesPath}linguistic-expertise.html" class="header-dropdown-item">Лингвистическая экспертиза</a>
+                <a href="${pagesPath}independent-equipment-expertise.html" class="header-dropdown-item">Независимая экспертиза оборудования любой сложности</a>
+                <a href="${pagesPath}handwriting-expertise.html" class="header-dropdown-item">Почерковедческая экспертиза</a>
                 <a href="${pagesPath}services.html?service=psychological" class="header-dropdown-item">Психологическая экспертиза (психолого-педагогическая)</a>
                 <a href="${pagesPath}laboratory-research.html" class="header-dropdown-item">Лабораторные исследования</a>
-                <a href="${pagesPath}services.html" class="header-dropdown-item">Другие экспертизы</a>
+                <a href="${isInPages ? '../index.html#services-preview' : '#services-preview'}" class="header-dropdown-item">Другие экспертизы</a>
             </div>
             <div class="header-dropdown-menu header-dropdown-menu-evaluation">
                 <a href="${pagesPath}services.html?service=business-valuation" class="header-dropdown-item">Оценка рыночной стоимости бизнеса</a>
@@ -366,7 +366,8 @@ function setupExpertiseLinkScroll() {
                             const headerHeight = header ? header.offsetHeight : 0;
                             const topInfoBar = document.querySelector('.top-info-bar');
                             const topInfoBarHeight = topInfoBar && !topInfoBar.classList.contains('top-info-bar-hidden') ? topInfoBar.offsetHeight : 0;
-                            const offset = headerHeight + topInfoBarHeight + 20; // 20px extra spacing
+                            // Увеличиваем offset, чтобы заголовок "Виды экспертиз" был виден
+                            const offset = headerHeight + topInfoBarHeight + 60; // 60px для отображения заголовка
                             
                             // Smooth scroll
                             const targetPosition = targetElement.offsetTop - offset;
@@ -394,7 +395,8 @@ function setupExpertiseLinkScroll() {
                 const headerHeight = header ? header.offsetHeight : 0;
                 const topInfoBar = document.querySelector('.top-info-bar');
                 const topInfoBarHeight = topInfoBar && !topInfoBar.classList.contains('top-info-bar-hidden') ? topInfoBar.offsetHeight : 0;
-                const offset = headerHeight + topInfoBarHeight + 20; // 20px extra spacing
+                // Увеличиваем offset, чтобы заголовок "Виды экспертиз" был виден
+                const offset = headerHeight + topInfoBarHeight + 60; // 60px для отображения заголовка
                 
                 const targetPosition = targetElement.offsetTop - offset;
                 window.scrollTo({
@@ -527,6 +529,7 @@ function setupTopInfoBarScroll() {
 // Render header and top info bar on page load
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+        preloadLoginIllustration(); // Preload login modal illustration
         initCity();
         renderTopInfoBar();
         renderHeader();
@@ -561,6 +564,7 @@ if (document.readyState === 'loading') {
     });
 } else {
     initCity();
+    preloadLoginIllustration(); // Preload login modal illustration
     renderTopInfoBar();
     renderHeader();
     setupDropdownBlur();
@@ -877,6 +881,16 @@ function closeContactsModal() {
     }
 }
 
+// Preload login modal illustration image
+function preloadLoginIllustration() {
+    const illustrationUrl = 'https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png';
+    const img = new Image();
+    img.src = illustrationUrl;
+}
+
+// Preload illustration when script loads
+preloadLoginIllustration();
+
 // Login Modal (Glassmorphism)
 function renderLoginModal() {
     const body = document.body;
@@ -894,7 +908,7 @@ function renderLoginModal() {
             <div class="login-container-glass">
                 <div class="circle circle-one"></div>
                 <div class="login-form-container">
-                    <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+                    <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" loading="eager" />
                     <h1 class="login-title opacity">ВХОД</h1>
                     <form id="loginModalForm">
                         <div class="input-wrapper">
